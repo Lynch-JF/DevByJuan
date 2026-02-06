@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sobre mí — DevByJuan</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!-- Iconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+}
+
+/* ===== CARD BASE ===== */
+.about-card,
+.contact-card {
+  width: 900px;
+  max-width: 95%;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  animation: fadeUp 0.8s ease;
+}
+
+/* ===== CARD SOBRE MI ===== */
+.about-card {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+}
+
+.photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 380px;
+}
+
+.photo img {
+  width: 90%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.info {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.info p {
+  color: #cbd5f5;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* ===== REDES ===== */
+.socials {
+  display: flex;
+  gap: 15px;
+}
+
+.socials a {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.08);
+  color: white;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.socials a:hover {
+  transform: translateY(-4px) scale(1.05);
+  background: #38bdf8;
+}
+
+/* ===== CONTACT CARD ===== */
+.contact-content {
+  padding: 40px;
+}
+
+.contact-content h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.contact-item {
+  background: rgba(255,255,255,0.06);
+  padding: 20px;
+  border-radius: 14px;
+  transition: 0.3s ease;
+}
+
+.contact-item:hover {
+  background: rgba(56,189,248,0.2);
+  transform: translateY(-4px);
+}
+
+.contact-item i {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: #38bdf8;
+}
+
+.contact-item p {
+  color: #e2e8f0;
+  font-size: 0.95rem;
+}
+
+/* ===== ANIMACIÓN ===== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .about-card {
+    grid-template-columns: 1fr;
+  }
+
+  .photo {
+    min-height: 260px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== SOBRE MI ===== -->
+<div class="about-card">
+
+  <div class="photo">
+    <img src="IMG/Curricuom.png">
+  </div>
+
+  <div class="info">
+    <h2>Sobre mí</h2>
+
+    <p>
+      Soy desarrollador enfocado en crear soluciones digitales modernas,
+      combinando JavaScript, C# y SQL para construir herramientas eficientes,
+      escalables y visualmente atractivas.
+    </p>
+
+    <div class="socials">
+      <a href="https://github.com/Lynch-JF"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/juan-jimenez-b7b754322"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/__.jmnz__/"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fas fa-envelope"></i></a>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ===== CONTACTO ===== -->
+<div class="contact-card">
+  <div class="contact-content">
+
+    <h2>Contacto</h2>
+
+    <div class="contact-grid">
+
+      <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <p>fraciscojimenez0094@gmail.com</p>
+      </div>
+
+      <div class="contact-item">
+        <i class="fas fa-phone"></i>
+        <p>+1 (809) 931-3720</p>
+      </div>
+
+      <div class="contact-item">
+        <i class="fas fa-location-dot"></i>
+        <p>RD, La</p>
+      </div>
+
+      <div class="contact-item">
+        <i class="fas fa-briefcase"></i>
+        <p>Disponible para proyectos</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
