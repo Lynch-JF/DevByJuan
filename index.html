@@ -14,7 +14,7 @@
 
 :root{
 --bg:#0b0f1a;
---text:#ffffff;
+--text:#fff;
 --accent:#38bdf8;
 --glass:rgba(255,255,255,0.1);
 }
@@ -38,18 +38,17 @@ body{
 background:var(--bg);
 color:var(--text);
 transition:.4s;
-overflow:hidden;
 }
 
 /* ===== HEADER ===== */
 
 .header{
 position:fixed;
-top:15px;
-right:20px;
+top:12px;
+right:12px;
 display:flex;
-gap:10px;
-z-index:5;
+gap:8px;
+z-index:10;
 }
 
 .control{
@@ -71,28 +70,30 @@ transform:scale(1.05);
 /* ===== HERO ===== */
 
 .hero{
-height:100vh;
+min-height:100vh;
 display:flex;
 align-items:center;
-padding-left:8%;
+justify-content:flex-start;
+padding:0 8%;
 position:relative;
+
 background:
-linear-gradient(120deg,rgba(0,0,0,.6),rgba(0,0,0,.2)),
-url("./IMG/FONDO.jpg") left center/cover no-repeat;
+linear-gradient(120deg,rgba(0,0,0,.6),rgba(0,0,0,.3)),
+url("./IMG/FONDO.jpg") center/cover no-repeat;
 }
 
-/* glow background */
+/* glow */
 
 .hero::after{
 content:"";
 position:absolute;
-width:500px;
-height:500px;
+width:420px;
+height:420px;
 background:radial-gradient(circle,var(--accent),transparent);
 filter:blur(120px);
 opacity:.25;
-top:-120px;
-right:-120px;
+top:-100px;
+right:-100px;
 animation:float 6s infinite alternate;
 }
 
@@ -104,25 +105,26 @@ to{transform:translateY(40px);}
 /* content */
 
 .content{
-max-width:480px;
+max-width:520px;
 animation:fadeUp 1s ease forwards;
 opacity:0;
 }
 
 h1{
-font-size:2.4rem;
+font-size:clamp(1.8rem,4vw,2.6rem);
 margin-bottom:15px;
 }
 
 #typing{
 color:var(--accent);
 font-weight:600;
+margin-bottom:10px;
 }
 
 p{
-margin:15px 0 25px;
-opacity:.85;
+opacity:.9;
 line-height:1.5;
+margin-bottom:25px;
 }
 
 /* buttons */
@@ -134,7 +136,7 @@ flex-wrap:wrap;
 }
 
 .btn{
-padding:10px 22px;
+padding:11px 22px;
 border-radius:25px;
 border:none;
 background:var(--accent);
@@ -162,11 +164,54 @@ from{opacity:0;transform:translateY(30px);}
 to{opacity:1;transform:translateY(0);}
 }
 
-/* responsive */
+/* ===== RESPONSIVE ===== */
 
-@media(max-width:768px){
-.hero{padding:20px;}
-h1{font-size:1.9rem;}
+/* tablets */
+
+@media(max-width:900px){
+
+.hero{
+justify-content:center;
+text-align:center;
+padding:40px 20px;
+}
+
+.content{
+max-width:100%;
+}
+
+.buttons{
+justify-content:center;
+}
+
+}
+
+/* móviles */
+
+@media(max-width:600px){
+
+.header{
+flex-direction:column;
+top:10px;
+right:10px;
+}
+
+.hero{
+background-position:center;
+}
+
+h1{
+font-size:1.8rem;
+}
+
+p{
+font-size:.95rem;
+}
+
+.btn{
+width:100%;
+}
+
 }
 
 </style>
@@ -208,11 +253,11 @@ Turning ideas into useful digital solutions
 
 <script>
 
-/* ===== LANGUAGE SYSTEM ===== */
+/* ===== LANGUAGE ===== */
 
-let lang = "en";
+let lang="en";
 
-const text = {
+const text={
 en:{
 title:"Hi, I'm Juan Francisco Jiménez",
 desc:"Turning ideas into useful digital solutions",
@@ -226,33 +271,33 @@ typing:["Desarrollador Web","Creador de Sistemas","Solucionador de Problemas"]
 };
 
 function toggleLang(){
-lang = lang === "en" ? "es" : "en";
-document.getElementById("title").innerText = text[lang].title;
-document.getElementById("desc").innerText = text[lang].desc;
+lang=lang==="en"?"es":"en";
+document.getElementById("title").innerText=text[lang].title;
+document.getElementById("desc").innerText=text[lang].desc;
 typeEffect();
 }
 
-/* ===== THEME ===== */
+/* theme */
 
 function toggleTheme(){
 document.body.classList.toggle("light");
 }
 
-/* ===== TYPING EFFECT ===== */
+/* typing */
 
 let i=0,j=0,current="",isDeleting=false;
 
 function typeEffect(){
-const words = text[lang].typing;
-const display = document.getElementById("typing");
+const words=text[lang].typing;
+const display=document.getElementById("typing");
 
-current = words[i];
+current=words[i];
 
 if(!isDeleting){
-display.textContent = current.slice(0,j++);
-if(j>current.length) isDeleting=true;
+display.textContent=current.slice(0,j++);
+if(j>current.length)isDeleting=true;
 }else{
-display.textContent = current.slice(0,j--);
+display.textContent=current.slice(0,j--);
 if(j<0){
 isDeleting=false;
 i=(i+1)%words.length;
