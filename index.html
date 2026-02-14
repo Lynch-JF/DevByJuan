@@ -4,26 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Portafolio Programador</title>
+<title>DevByJuan Portfolio</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-
-/* ===== VARIABLES ===== */
-
-:root{
---bg:#0b0f1a;
---text:#fff;
---accent:#38bdf8;
---glass:rgba(255,255,255,0.1);
-}
-
-.light{
---bg:#f2f2f2;
---text:#111;
---glass:rgba(0,0,0,0.08);
-}
 
 /* ===== GLOBAL ===== */
 
@@ -35,36 +20,35 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-background:var(--bg);
-color:var(--text);
-transition:.4s;
+background:#0b0f1a;
+color:#fff;
+overflow-x:hidden;
 }
 
-/* ===== HEADER ===== */
+/* ===== LANGUAGE BUTTON ===== */
 
-.header{
+.lang{
 position:fixed;
-top:12px;
-right:12px;
-display:flex;
-gap:8px;
+top:15px;
+right:15px;
 z-index:10;
 }
 
-.control{
-padding:8px 14px;
+.lang button{
+padding:8px 16px;
 border-radius:20px;
-background:var(--glass);
-backdrop-filter:blur(10px);
 border:none;
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+color:white;
 cursor:pointer;
-color:var(--text);
-font-size:.85rem;
-transition:.25s;
+font-size:.9rem;
+transition:.3s;
 }
 
-.control:hover{
-transform:scale(1.05);
+.lang button:hover{
+background:#38bdf8;
+color:black;
 }
 
 /* ===== HERO ===== */
@@ -73,12 +57,10 @@ transform:scale(1.05);
 min-height:100vh;
 display:flex;
 align-items:center;
-justify-content:flex-start;
 padding:0 8%;
 position:relative;
-
 background:
-linear-gradient(120deg,rgba(0,0,0,.6),rgba(0,0,0,.3)),
+linear-gradient(120deg,rgba(0,0,0,.65),rgba(0,0,0,.25)),
 url("./IMG/FONDO.jpg") center/cover no-repeat;
 }
 
@@ -87,13 +69,13 @@ url("./IMG/FONDO.jpg") center/cover no-repeat;
 .hero::after{
 content:"";
 position:absolute;
-width:420px;
-height:420px;
-background:radial-gradient(circle,var(--accent),transparent);
-filter:blur(120px);
+width:500px;
+height:500px;
+background:radial-gradient(circle,#38bdf8,transparent);
+filter:blur(140px);
 opacity:.25;
-top:-100px;
-right:-100px;
+top:-120px;
+right:-120px;
 animation:float 6s infinite alternate;
 }
 
@@ -108,53 +90,54 @@ to{transform:translateY(40px);}
 max-width:520px;
 animation:fadeUp 1s ease forwards;
 opacity:0;
+z-index:1;
 }
 
 h1{
-font-size:clamp(1.8rem,4vw,2.6rem);
+font-size:2.5rem;
 margin-bottom:15px;
 }
 
 #typing{
-color:var(--accent);
+color:#38bdf8;
 font-weight:600;
-margin-bottom:10px;
+min-height:30px;
 }
 
 p{
+margin:15px 0 25px;
 opacity:.9;
-line-height:1.5;
-margin-bottom:25px;
+line-height:1.6;
 }
 
 /* buttons */
 
 .buttons{
 display:flex;
-gap:12px;
+gap:15px;
 flex-wrap:wrap;
 }
 
 .btn{
-padding:11px 22px;
+padding:11px 24px;
 border-radius:25px;
 border:none;
-background:var(--accent);
-color:#000;
+background:#38bdf8;
+color:black;
 cursor:pointer;
 font-weight:600;
-transition:.25s;
+transition:.3s;
 }
 
 .btn.secondary{
 background:transparent;
-border:1.5px solid var(--text);
-color:var(--text);
+border:1.5px solid white;
+color:white;
 }
 
 .btn:hover{
 transform:translateY(-3px);
-box-shadow:0 0 15px var(--accent);
+box-shadow:0 0 15px #38bdf8;
 }
 
 /* animation */
@@ -166,14 +149,12 @@ to{opacity:1;transform:translateY(0);}
 
 /* ===== RESPONSIVE ===== */
 
-/* tablets */
-
 @media(max-width:900px){
 
 .hero{
-justify-content:center;
+padding:40px 25px;
 text-align:center;
-padding:40px 20px;
+justify-content:center;
 }
 
 .content{
@@ -186,30 +167,14 @@ justify-content:center;
 
 }
 
-/* móviles */
-
 @media(max-width:600px){
 
-.header{
-flex-direction:column;
-top:10px;
-right:10px;
-}
-
-.hero{
-background-position:center;
-}
-
 h1{
-font-size:1.8rem;
+font-size:1.9rem;
 }
 
 p{
 font-size:.95rem;
-}
-
-.btn{
-width:100%;
 }
 
 }
@@ -219,14 +184,13 @@ width:100%;
 
 <body>
 
-<!-- CONTROLES -->
+<!-- language button -->
 
-<div class="header">
-<button class="control" onclick="toggleLang()">🌎 Language</button>
-<button class="control" onclick="toggleTheme()">🌓 Theme</button>
+<div class="lang">
+<button onclick="toggleLang()">🌍 Language</button>
 </div>
 
-<!-- HERO -->
+<!-- hero -->
 
 <section class="hero">
 
@@ -243,8 +207,8 @@ Turning ideas into useful digital solutions
 </p>
 
 <div class="buttons">
-<a href="aboutme.html"><button class="btn">About me</button></a>
-<a href="project.html"><button class="btn secondary">Projects</button></a>
+<a href="aboutme.html"><button class="btn" id="aboutBtn">About me</button></a>
+<a href="projects.html"><button class="btn secondary" id="projBtn">Projects</button></a>
 </div>
 
 </div>
@@ -253,7 +217,7 @@ Turning ideas into useful digital solutions
 
 <script>
 
-/* ===== LANGUAGE ===== */
+/* ===== LANGUAGE SYSTEM ===== */
 
 let lang="en";
 
@@ -261,50 +225,67 @@ const text={
 en:{
 title:"Hi, I'm Juan Francisco Jiménez",
 desc:"Turning ideas into useful digital solutions",
+about:"About me",
+projects:"Projects",
 typing:["Web Developer","System Builder","Problem Solver"]
 },
 es:{
 title:"Hola, soy Juan Francisco Jiménez",
 desc:"Transformando ideas en soluciones digitales útiles",
+about:"Sobre mí",
+projects:"Proyectos",
 typing:["Desarrollador Web","Creador de Sistemas","Solucionador de Problemas"]
 }
 };
 
 function toggleLang(){
+
 lang=lang==="en"?"es":"en";
+
 document.getElementById("title").innerText=text[lang].title;
 document.getElementById("desc").innerText=text[lang].desc;
-typeEffect();
+document.getElementById("aboutBtn").innerText=text[lang].about;
+document.getElementById("projBtn").innerText=text[lang].projects;
+
+resetTyping();
 }
 
-/* theme */
+/* ===== TYPING EFFECT ===== */
 
-function toggleTheme(){
-document.body.classList.toggle("light");
-}
-
-/* typing */
-
-let i=0,j=0,current="",isDeleting=false;
+let i=0,j=0,current="",deleting=false,typingLoop;
 
 function typeEffect(){
-const words=text[lang].typing;
-const display=document.getElementById("typing");
 
+const words=text[lang].typing;
 current=words[i];
 
-if(!isDeleting){
-display.textContent=current.slice(0,j++);
-if(j>current.length)isDeleting=true;
+if(!deleting){
+
+document.getElementById("typing").textContent=current.slice(0,j++);
+
+if(j>current.length) deleting=true;
+
 }else{
-display.textContent=current.slice(0,j--);
+
+document.getElementById("typing").textContent=current.slice(0,j--);
+
 if(j<0){
-isDeleting=false;
+deleting=false;
 i=(i+1)%words.length;
 }
+
 }
 
-setTimeout(typeEffect,isDeleting?60:120);
+typingLoop=setTimeout(typeEffect,deleting?60:120);
+
+}
+
+function resetTyping(){
+clearTimeout(typingLoop);
+i=0;
+j=0;
+deleting=false;
+typeEffect();
 }
 
 typeEffect();
