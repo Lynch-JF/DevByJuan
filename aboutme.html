@@ -6,229 +6,343 @@
 <title>Sobre mí — DevByJuan</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<!-- Iconos -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 }
 
-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-  padding: 40px 20px;
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  color: white;
+body{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:30px;
+padding:40px 20px;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+color:white;
 }
 
-/* ===== CARD BASE ===== */
-.about-card,
-.contact-card {
-  width: 900px;
-  max-width: 95%;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  animation: fadeUp 0.8s ease;
+/* ===== BASE CARD ===== */
+
+.card{
+width:900px;
+max-width:95%;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+border-radius:20px;
+box-shadow:0 20px 40px rgba(0,0,0,.4);
+animation:fadeUp .8s ease;
+overflow:hidden;
 }
 
-/* ===== CARD SOBRE MI ===== */
-.about-card {
-  display: grid;
-  grid-template-columns: 320px 1fr;
+/* ===== FOTO CARD ===== */
+
+.photo-card{
+display:flex;
+justify-content:center;
+align-items:center;
+padding:40px;
 }
 
-.photo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 380px;
+.photo-card img{
+width:230px;
+border-radius:50%;
+box-shadow:0 0 25px rgba(56,189,248,.5);
+animation:float 3s ease-in-out infinite;
+transition:.4s;
 }
 
-.photo img {
-  width: 90%;
-  height: auto;
-  border-radius: 12px;
+.photo-card img:hover{
+transform:scale(1.05);
+box-shadow:0 0 45px rgba(56,189,248,.9);
 }
 
-.info {
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+/* ===== ABOUT ===== */
+
+.about-card{
+display:grid;
+grid-template-columns:1fr;
+padding:40px;
 }
 
-.info h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
+.info h2{
+font-size:2rem;
+margin-bottom:10px;
 }
 
-.info p {
-  color: #cbd5f5;
-  line-height: 1.6;
-  margin-bottom: 25px;
+.info p{
+color:#cbd5f5;
+line-height:1.6;
+margin-bottom:25px;
 }
 
-/* ===== REDES ===== */
-.socials {
-  display: flex;
-  gap: 15px;
+.socials{
+display:flex;
+gap:15px;
 }
 
-.socials a {
-  width: 45px;
-  height: 45px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255,255,255,0.08);
-  color: white;
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
+.socials a{
+width:45px;
+height:45px;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(255,255,255,0.08);
+transition:.3s;
 }
 
-.socials a:hover {
-  transform: translateY(-4px) scale(1.05);
-  background: #38bdf8;
+.socials a:hover{
+background:#38bdf8;
+transform:translateY(-4px);
 }
 
-/* ===== CONTACT CARD ===== */
-.contact-content {
-  padding: 40px;
+/* ===== CONTACT ===== */
+
+.contact-content{
+padding:40px;
 }
 
-.contact-content h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+.contact-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
 }
 
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+.contact-item{
+background:rgba(255,255,255,0.06);
+padding:20px;
+border-radius:14px;
+transition:.3s;
 }
 
-.contact-item {
-  background: rgba(255,255,255,0.06);
-  padding: 20px;
-  border-radius: 14px;
-  transition: 0.3s ease;
+.contact-item:hover{
+background:rgba(56,189,248,.2);
+transform:translateY(-4px);
 }
 
-.contact-item:hover {
-  background: rgba(56,189,248,0.2);
-  transform: translateY(-4px);
+.contact-item i{
+font-size:1.4rem;
+margin-bottom:10px;
+color:#38bdf8;
 }
 
-.contact-item i {
-  font-size: 1.4rem;
-  margin-bottom: 10px;
-  color: #38bdf8;
+/* ===== SKILLS ===== */
+
+.skills-content{
+padding:40px;
 }
 
-.contact-item p {
-  color: #e2e8f0;
-  font-size: 0.95rem;
+.skills-grid{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+margin-top:15px;
 }
 
-/* ===== ANIMACIÓN ===== */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.skill{
+background:rgba(56,189,248,.15);
+padding:10px 16px;
+border-radius:30px;
+font-weight:500;
+transition:.3s;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .about-card {
-    grid-template-columns: 1fr;
-  }
-
-  .photo {
-    min-height: 260px;
-  }
+.skill:hover{
+background:#38bdf8;
+transform:scale(1.05);
 }
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-12px);}
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(30px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* ===== SKILLS PRO ===== */
+
+.skills-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:20px;
+margin-top:20px;
+}
+
+.skill-card{
+position:relative;
+background:rgba(255,255,255,0.06);
+padding:20px;
+border-radius:14px;
+text-align:center;
+cursor:pointer;
+transition:.3s;
+}
+
+.skill-card img{
+width:60px;
+margin-bottom:10px;
+}
+
+.skill-card span{
+display:block;
+font-weight:500;
+}
+
+.skill-card:hover{
+background:rgba(56,189,248,.2);
+transform:translateY(-6px) scale(1.05);
+box-shadow:0 0 20px rgba(56,189,248,.6);
+}
+
+/* Tooltip porcentaje */
+
+.skill-card::after{
+content:attr(data-level);
+position:absolute;
+top:-12px;
+right:-12px;
+background:#38bdf8;
+color:white;
+padding:6px 10px;
+border-radius:20px;
+font-size:.8rem;
+opacity:0;
+transform:scale(.5);
+transition:.3s;
+}
+
+.skill-card:hover::after{
+opacity:1;
+transform:scale(1);
+}
+
+
 </style>
 </head>
 
 <body>
 
-<!-- ===== SOBRE MI ===== -->
-<div class="about-card">
+<!-- ===== FOTO CARD ===== -->
 
-  <div class="photo">
-    <img src="IMG/Curricuom.png">
-  </div>
+<div class="card photo-card">
+<img src="IMG/Curricuom.png">
+</div>
 
-  <div class="info">
-    <h2>Sobre mí</h2>
+<!-- ===== ABOUT ===== -->
 
-    <p>
-      Soy desarrollador enfocado en crear soluciones digitales modernas,
-      combinando JavaScript, C# y SQL para construir herramientas eficientes,
-      escalables y visualmente atractivas.
-    </p>
+<div class="card about-card">
 
-    <div class="socials">
-      <a href="https://github.com/Lynch-JF"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/juan-jimenez-b7b754322"><i class="fab fa-linkedin"></i></a>
-      <a href="https://www.instagram.com/__.jmnz__/"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fas fa-envelope"></i></a>
-    </div>
+<div class="info">
 
-  </div>
+<h2>Sobre mí</h2>
 
+<p>
+Soy desarrollador enfocado en crear soluciones digitales modernas,
+combinando JavaScript, C# y SQL para construir herramientas eficientes,
+escalables y visualmente atractivas.
+</p>
+
+<div class="socials">
+<a href="https://github.com/Lynch-JF"><i class="fab fa-github"></i></a>
+<a href="https://www.linkedin.com/in/juan-jimenez-b7b754322"><i class="fab fa-linkedin"></i></a>
+<a href="https://www.instagram.com/__.jmnz__/"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fas fa-envelope"></i></a>
+</div>
+
+</div>
 </div>
 
 <!-- ===== CONTACTO ===== -->
-<div class="contact-card">
-  <div class="contact-content">
 
-    <h2>Contacto</h2>
+<div class="card">
 
-    <div class="contact-grid">
+<div class="contact-content">
 
-      <div class="contact-item">
-        <i class="fas fa-envelope"></i>
-        <p>fraciscojimenez0094@gmail.com</p>
-      </div>
+<h2>Contacto</h2>
 
-      <div class="contact-item">
-        <i class="fas fa-phone"></i>
-        <p>+1 (809) 931-3720</p>
-      </div>
+<div class="contact-grid">
 
-      <div class="contact-item">
-        <i class="fas fa-location-dot"></i>
-        <p>RD, La</p>
-      </div>
-
-      <div class="contact-item">
-        <i class="fas fa-briefcase"></i>
-        <p>Disponible para proyectos</p>
-      </div>
-
-    </div>
-
-  </div>
+<div class="contact-item">
+<i class="fas fa-envelope"></i>
+<p>fraciscojimenez0094@gmail.com</p>
 </div>
+
+<div class="contact-item">
+<i class="fas fa-phone"></i>
+<p>+1 (809) 931-3720</p>
+</div>
+
+<div class="contact-item">
+<i class="fas fa-location-dot"></i>
+<p>República Dominicana</p>
+</div>
+
+<div class="contact-item">
+<i class="fas fa-briefcase"></i>
+<p>Disponible para proyectos</p>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- ===== SKILLS PRO ===== -->
+
+<div class="card">
+
+<div class="skills-content">
+
+<h2>Habilidades</h2>
+
+<div class="skills-grid">
+
+<div class="skill-card" data-level="90%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg">
+<span>HTML5</span>
+</div>
+
+<div class="skill-card" data-level="85%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg">
+<span>CSS3</span>
+</div>
+
+<div class="skill-card" data-level="80%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg">
+<span>JavaScript</span>
+</div>
+
+<div class="skill-card" data-level="75%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg">
+<span>C#</span>
+</div>
+
+<div class="skill-card" data-level="70%">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg">
+<span>SQL</span>
+</div>
+
+<div class="skill-card" data-level="85%">
+<img src="https://cdn-icons-png.flaticon.com/512/2920/2920277.png">
+<span>IT</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
 
 </body>
 </html>
