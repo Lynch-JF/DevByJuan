@@ -3,135 +3,268 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Portafolio Programador</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+
+/* ===== VARIABLES ===== */
+
+:root{
+--bg:#0b0f1a;
+--text:#ffffff;
+--accent:#38bdf8;
+--glass:rgba(255,255,255,0.1);
 }
 
-body, html {
-  height: 100%;
+.light{
+--bg:#f2f2f2;
+--text:#111;
+--glass:rgba(0,0,0,0.08);
 }
 
-.hero {
-  height: 100vh;
-  background: url("./IMG/FONDO.jpg") left center / cover no-repeat;
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding-left: 8%;
-  color: white;
+/* ===== GLOBAL ===== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 }
 
-/* Overlay oscuro */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
+body{
+background:var(--bg);
+color:var(--text);
+transition:.4s;
+overflow:hidden;
 }
 
-.content {
-  position: relative;
-  max-width: 420px;
-  animation: fadeUp 1s ease forwards;
-  opacity: 0;
+/* ===== HEADER ===== */
+
+.header{
+position:fixed;
+top:15px;
+right:20px;
+display:flex;
+gap:10px;
+z-index:5;
 }
 
-h1 {
-  font-size: 2.2rem;
-  margin-bottom: 12px;
-  font-weight: 600;
+.control{
+padding:8px 14px;
+border-radius:20px;
+background:var(--glass);
+backdrop-filter:blur(10px);
+border:none;
+cursor:pointer;
+color:var(--text);
+font-size:.85rem;
+transition:.25s;
 }
 
-p {
-  font-size: 1rem;
-  margin-bottom: 25px;
-  color: #e0e0e0;
-  line-height: 1.5;
+.control:hover{
+transform:scale(1.05);
 }
 
-.buttons {
-  display: flex;
-  gap: 12px;
+/* ===== HERO ===== */
+
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+padding-left:8%;
+position:relative;
+background:
+linear-gradient(120deg,rgba(0,0,0,.6),rgba(0,0,0,.2)),
+url("./IMG/FONDO.jpg") left center/cover no-repeat;
 }
 
-.btn {
-  padding: 10px 22px;
-  border-radius: 25px;
-  border: 1.5px solid white;
-  background: transparent;
-  color: white;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.25s ease;
+/* glow background */
+
+.hero::after{
+content:"";
+position:absolute;
+width:500px;
+height:500px;
+background:radial-gradient(circle,var(--accent),transparent);
+filter:blur(120px);
+opacity:.25;
+top:-120px;
+right:-120px;
+animation:float 6s infinite alternate;
 }
 
-.btn:hover {
-  background: white;
-  color: black;
-  transform: translateY(-2px);
+@keyframes float{
+from{transform:translateY(0);}
+to{transform:translateY(40px);}
 }
 
-/* Animación */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* content */
+
+.content{
+max-width:480px;
+animation:fadeUp 1s ease forwards;
+opacity:0;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .hero {
-    padding: 20px;
-    align-items: center;
-  }
-
-  .content {
-    max-width: 100%;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  p {
-    font-size: 0.95rem;
-  }
-
-  .buttons {
-    flex-wrap: wrap;
-  }
+h1{
+font-size:2.4rem;
+margin-bottom:15px;
 }
+
+#typing{
+color:var(--accent);
+font-weight:600;
+}
+
+p{
+margin:15px 0 25px;
+opacity:.85;
+line-height:1.5;
+}
+
+/* buttons */
+
+.buttons{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:10px 22px;
+border-radius:25px;
+border:none;
+background:var(--accent);
+color:#000;
+cursor:pointer;
+font-weight:600;
+transition:.25s;
+}
+
+.btn.secondary{
+background:transparent;
+border:1.5px solid var(--text);
+color:var(--text);
+}
+
+.btn:hover{
+transform:translateY(-3px);
+box-shadow:0 0 15px var(--accent);
+}
+
+/* animation */
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(30px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* responsive */
+
+@media(max-width:768px){
+.hero{padding:20px;}
+h1{font-size:1.9rem;}
+}
+
 </style>
 </head>
 
 <body>
 
-<section class="hero">
-  <div class="content">
-    <h1>Hi, I'm Juan Francisco Jiménez</h1>
-    <p>
-      Turning ideas into useful digital solutions
-    </p>
+<!-- CONTROLES -->
 
-    <div class="buttons">
-     <a href="aboutme.html">  <button class="btn">About me</button></a>
-     <a href="project.html"> <button class="btn">Projects</button></a>
-    </div>
-  </div>
+<div class="header">
+<button class="control" onclick="toggleLang()">🌎 Language</button>
+<button class="control" onclick="toggleTheme()">🌓 Theme</button>
+</div>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="content">
+
+<h1 id="title">
+Hi, I'm Juan Francisco Jiménez
+</h1>
+
+<div id="typing"></div>
+
+<p id="desc">
+Turning ideas into useful digital solutions
+</p>
+
+<div class="buttons">
+<a href="aboutme.html"><button class="btn">About me</button></a>
+<a href="projects.html"><button class="btn secondary">Projects</button></a>
+</div>
+
+</div>
+
 </section>
+
+<script>
+
+/* ===== LANGUAGE SYSTEM ===== */
+
+let lang = "en";
+
+const text = {
+en:{
+title:"Hi, I'm Juan Francisco Jiménez",
+desc:"Turning ideas into useful digital solutions",
+typing:["Web Developer","System Builder","Problem Solver"]
+},
+es:{
+title:"Hola, soy Juan Francisco Jiménez",
+desc:"Transformando ideas en soluciones digitales útiles",
+typing:["Desarrollador Web","Creador de Sistemas","Solucionador de Problemas"]
+}
+};
+
+function toggleLang(){
+lang = lang === "en" ? "es" : "en";
+document.getElementById("title").innerText = text[lang].title;
+document.getElementById("desc").innerText = text[lang].desc;
+typeEffect();
+}
+
+/* ===== THEME ===== */
+
+function toggleTheme(){
+document.body.classList.toggle("light");
+}
+
+/* ===== TYPING EFFECT ===== */
+
+let i=0,j=0,current="",isDeleting=false;
+
+function typeEffect(){
+const words = text[lang].typing;
+const display = document.getElementById("typing");
+
+current = words[i];
+
+if(!isDeleting){
+display.textContent = current.slice(0,j++);
+if(j>current.length) isDeleting=true;
+}else{
+display.textContent = current.slice(0,j--);
+if(j<0){
+isDeleting=false;
+i=(i+1)%words.length;
+}
+}
+
+setTimeout(typeEffect,isDeleting?60:120);
+}
+
+typeEffect();
+
+</script>
 
 </body>
 </html>
