@@ -146,12 +146,13 @@ p{
     .hero {
         justify-content: center;
         text-align: center;
-        padding-top: 60px; /* Espacio para el botón de idioma */
+        padding-top: 60px;
     }
     
     .buttons {
         justify-content: center;
         width: 100%;
+        gap: 20px; /* Aumentamos el espacio lateral entre botones en tablets */
     }
 
     .hero::after {
@@ -164,15 +165,30 @@ p{
 }
 
 @media (max-width: 480px) {
-    .buttons {
-        flex-direction: column; /* Botones uno encima del otro en pantallas muy chicas */
-        align-items: center;
+    .content {
+        padding: 0 10px; /* Un poco de aire a los lados del texto */
     }
+
+    h1 {
+        margin-bottom: 20px; /* Más espacio bajo el nombre */
+    }
+
+    .buttons {
+        flex-direction: column; /* Uno arriba del otro */
+        align-items: center;
+        gap: 16px; /* <--- ESPACIO ENTRE BOTONES: Aquí es donde respiran */
+        margin-top: 10px;
+    }
+
     .btn {
         width: 100%;
-        max-width: 280px;
+        max-width: 300px; /* Un poco más anchos para que se vean imponentes */
+        padding: 16px 0;  /* Más altura para que sea fácil darles clic con el dedo */
+        font-size: 1rem;  /* Letra un pelín más grande */
+        border-radius: 16px; /* Bordes un poco menos redondeados para estilo moderno */
     }
 }
+    
 </style>
 </head>
 <body>
