@@ -3,317 +3,292 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Projects — DevByJuan</title>
+<title>Proyectos — DevByJuan</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-
 /* ===== GLOBAL ===== */
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
 
 body{
-background:linear-gradient(135deg,#0f172a,#020617);
-color:white;
-overflow-x:hidden;
+    background: linear-gradient(135deg,#0f172a,#020617);
+    color:white;
+    min-height: 100vh;
+    overflow-x:hidden;
+}
+
+/* ===== BOTÓN VOLVER (GLASS) ===== */
+.nav-container {
+    padding: 30px 5% 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.btn-back {
+    text-decoration: none;
+    color: #cbd5f5;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 24px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    transition: 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.btn-back:hover {
+    background: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+    transform: translateX(-5px);
 }
 
 /* ===== SECTION ===== */
-
-.projects{
-padding:90px 5%;
+.projects {
+    padding: 40px 5% 90px;
 }
 
-.projects h2{
-text-align:center;
-font-size:2.6rem;
-margin-bottom:60px;
+.projects h2 {
+    text-align: center;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    margin-bottom: 50px;
+    font-weight: 700;
+    letter-spacing: -1px;
 }
 
 /* GRID */
-
-.projects-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:35px;
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
 }
 
-/* ===== CARD ===== */
-
-.project-card{
-position:relative;
-height:360px;
-border-radius:18px;
-overflow:hidden;
-cursor:pointer;
-background:#111;
-transition:.4s;
-animation:fadeUp .8s ease both;
+/* ===== CARD ESTÉTICA ===== */
+.project-card {
+    position: relative;
+    height: 380px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #111;
+    transition: .5s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeUp .8s ease both;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.project-card img{
-width:100%;
-height:100%;
-object-fit:cover;
-transition:transform .6s ease;
+.project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .8s ease;
 }
 
-/* overlay */
-
-.overlay{
-position:absolute;
-inset:0;
-background:linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,.2));
-display:flex;
-flex-direction:column;
-justify-content:flex-end;
-padding:20px;
-opacity:.9;
-transition:.4s;
+/* overlay más suave */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, 
+        rgba(2, 6, 23, 0.95) 10%, 
+        rgba(2, 6, 23, 0.4) 50%, 
+        transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 25px;
+    transition: .4s;
 }
 
-.overlay h3{
-font-size:1.3rem;
-margin-bottom:8px;
+.overlay h3 {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+    color: #38bdf8;
 }
 
-.overlay p{
-font-size:.9rem;
-opacity:.85;
-margin-bottom:15px;
+.overlay p {
+    font-size: .9rem;
+    color: #cbd5f5;
+    margin-bottom: 20px;
+    font-weight: 300;
 }
 
-/* buttons */
-
-.actions{
-display:flex;
-gap:10px;
+/* actions */
+.actions {
+    display: flex;
+    gap: 12px;
 }
 
-.actions a{
-flex:1;
-text-align:center;
-padding:8px;
-border-radius:8px;
-background:#38bdf8;
-color:black;
-text-decoration:none;
-font-weight:600;
-font-size:.85rem;
-transition:.3s;
+.actions a {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: .85rem;
+    transition: .3s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
-.actions a:hover{
-background:#0ea5e9;
+.actions a:hover {
+    background: #38bdf8;
+    color: #000;
+    border-color: #38bdf8;
 }
 
-/* hover magic */
-
-.project-card:hover{
-transform:translateY(-10px) scale(1.02);
-box-shadow:0 0 25px rgba(56,189,248,.5);
+/* hover effects */
+.project-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.2);
+    border-color: rgba(56, 189, 248, 0.3);
 }
 
-.project-card:hover img{
-transform:scale(1.1);
-}
-
-.project-card:hover .overlay{
-background:linear-gradient(to top,rgba(2,6,23,.95),rgba(2,6,23,.4));
+.project-card:hover img {
+    transform: scale(1.1);
 }
 
 /* animation */
-
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(40px);}
-to{opacity:1;transform:translateY(0);}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== RESPONSIVE ===== */
-
-@media(max-width:1000px){
-.projects-grid{
-grid-template-columns:repeat(2,1fr);
+@media(max-width: 600px) {
+    .projects { padding-top: 20px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card { height: 320px; }
 }
-}
-
-@media(max-width:600px){
-.projects-grid{
-grid-template-columns:1fr;
-}
-.projects h2{
-font-size:2rem;
-}
-}
-
 </style>
 </head>
 
 <body>
 
+<nav class="nav-container">
+    <a href="index.html" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Volver al inicio
+    </a>
+</nav>
+
 <section class="projects">
 
-<h2>My Projects</h2>
+    <h2>Mis Proyectos</h2>
 
-<div class="projects-grid">
+    <div class="projects-grid">
 
-<!-- CARD TEMPLATE — duplica esto -->
+        <div class="project-card">
+            <img src="IMG/HIDENCUSTOMER.png" alt="HIDENCUSTOMER">
+            <div class="overlay">
+                <h3>HIDENCUSTOMER</h3>
+                <p>Order Time Tracking System</p>
+                <div class="actions">
+                    <a href="https://hidencustomer.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+                    <a href="https://github.com/Lynch-JF/hidencustomer" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                </div>
+            </div>
+        </div>
 
-<div class="project-card">
+        <div class="project-card">
+            <img src="IMG/SHOWSERVICE.png" alt="SHOWSERVICE">
+            <div class="overlay">
+                <h3>SHOWSERVICE</h3>
+                <p>IT & Logistics Ticket System</p>
+                <div class="actions">
+                    <a href="https://showservice.vercel.app/" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+                    <a href="https://github.com/Lynch-JF/showservice" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                </div>
+            </div>
+        </div>
 
-<img src="IMG/HIDENCUSTOMER.png">
+        <div class="project-card">
+            <img src="IMG/Estancia.png" alt="Daycare">
+            <div class="overlay">
+                <h3>Daycare</h3>
+                <p>School & Children Platform</p>
+                <div class="actions">
+                    <a href="https://infantil.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+                    <a href="https://github.com/Lynch-JF/care" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                </div>
+            </div>
+        </div>
 
-<div class="overlay">
-<h3>HIDENCUSTOMER</h3>
-<p>Order Time Tracking System</p>
+        <div class="project-card">
+            <img src="IMG/FONDITO.png" alt="Fondito">
+            <div class="overlay">
+                <h3>Fondito Ice Cream</h3>
+                <p>Sweet Ice Cream Website</p>
+                <div class="actions">
+                    <a href="https://fondito.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+                    <a href="https://github.com/Lynch-JF/fondito" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                </div>
+            </div>
+        </div>
 
-<div class="actions">
-<a href="hidencustomer.vercel.app">Live</a>
-<a href="https://github.com/Lynch-JF/hidencustomer">Repo</a>
-</div>
-</div>
+        <div class="project-card">
+            <img src="IMG/STARKCARS.png" alt="StarkCars">
+            <div class="overlay">
+                <h3>StarkCars</h3>
+                <p>Sports Car Showcase</p>
+                <div class="actions">
+                    <a href="https://starkcar.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+                    <a href="https://github.com/Lynch-JF/Siter" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                </div>
+            </div>
+        </div>
 
-</div>
+        <div class="project-card">
+            <img src="IMG/to-do.png" alt="To-Do">
+            <div class="overlay">
+                <h3>To-Do App</h3>
+                <p>Task Manager</p>
+                <div class="actions">
+                    <a href="https://to-do-zeta-henna.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+                    <a href="https://github.com/Lynch-JF/to-do" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                </div>
+            </div>
+        </div>
 
-<div class="project-card">
+        <div class="project-card">
+            <img src="IMG/to-do.png" alt="CLOFY.RD">
+            <div class="overlay">
+                <h3>CLOFY.RD</h3>
+                <p>Task Manager</p>
+                <div class="actions">
+                    <a href="http://lynch-jf.github.io/Cloffy.rd/" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+                    <a href="https://github.com/Lynch-JF/Cloffy.rd" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                </div>
+            </div>
+        </div>
 
-<img src="IMG/SHOWSERVICE.png">
+        <div class="project-card">
+            <img src="IMG/FARMACIA.png" alt="Sales System">
+            <div class="overlay">
+                <h3>Sales System</h3>
+                <p>Management Platform</p>
+                <div class="actions">
+                    <a href="#"><i class="fas fa-external-link-alt"></i> Live</a>
+                    <a href="#"><i class="fab fa-github"></i> Repo</a>
+                </div>
+            </div>
+        </div>
 
-<div class="overlay">
-<h3>SHOWSERVICE</h3>
-<p>IT & Logistics Ticket System</p>
-
-<div class="actions">
-<a href="https://showservice.vercel.app/">Live</a>
-<a href="https://github.com/Lynch-JF/showservice">Repo</a>
-</div>
-</div>
-
-</div>
-
-<div class="project-card">
-
-<img src="IMG/Estancia.png">
-
-<div class="overlay">
-<h3>Daycare</h3>
-<p>School & Children Platform</p>
-
-<div class="actions">
-<a href="infantil.vercel.app">Live</a>
-<a href="https://github.com/Lynch-JF/care">Repo</a>
-</div>
-</div>
-
-</div>
-
-<div class="project-card">
-
-<img src="IMG/FONDITO.png">
-
-<div class="overlay">
-<h3>Fondito Ice Cream</h3>
-<p>Sweet Ice Cream Website</p>
-
-<div class="actions">
-<a href="fondito.vercel.app">Live</a>
-<a href="https://github.com/Lynch-JF/fondito">Repo</a>
-</div>
-</div>
-
-</div>
-
-<div class="project-card">
-
-<img src="IMG/STARKCARS.png">
-
-<div class="overlay">
-<h3>StarkCars</h3>
-<p>Sports Car Showcase</p>
-
-<div class="actions">
-<a href="starkcar.vercel.app">Live</a>
-<a href="https://github.com/Lynch-JF/Siter">Repo</a>
-</div>
-</div>
-
-</div>
-
-<div class="project-card">
-
-<img src="IMG/to-do.png">
-
-<div class="overlay">
-<h3>To-Do App</h3>
-<p>Task Manager</p>
-
-<div class="actions">
-<a href="to-do-zeta-henna.vercel.app">Live</a>
-<a href="https://github.com/Lynch-JF/to-do">Repo</a>
-</div>
-</div>
-
-</div>
-
-<div class="project-card">
-
-<img src="IMG/to-do.png">
-
-<div class="overlay">
-<h3>CLOFY.RD</h3>
-<p>Task Manager</p>
-
-<div class="actions">
-<a href="http://lynch-jf.github.io/Cloffy.rd/">Live</a>
-<a href="https://github.com/Lynch-JF/Cloffy.rd">Repo</a>
-</div>
-</div>
-
-</div>  
-
-<div class="project-card">
-
-<img src="IMG/FARMACIA.png">
-
-<div class="overlay">
-<h3>Sales System</h3>
-<p>Management Platform</p>
-
-<div class="actions">
-<a href="#">Live</a>
-<a href="#">Repo</a>
-</div>
-</div>
-
-</div>
-
-<div class="project-card">
-
-<img src="IMG/isw.png">
-
-<div class="overlay">
-<h3>Sales System 2</h3>
-<p>Management Platform</p>
-
-<div class="actions">
-<a href="#">Live</a>
-<a href="#">Repo</a>
-</div>
-</div>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
 </body>
 </html>
-
