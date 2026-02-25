@@ -3,293 +3,248 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>DevByJuan Portfolio</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-
 /* ===== GLOBAL ===== */
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#0b0f1a;
-color:#fff;
-overflow-x:hidden;
+    background:#0b0f1a;
+    color:#fff;
+    overflow-x:hidden;
 }
 
 /* ===== LANGUAGE BUTTON ===== */
-
 .lang{
-position:fixed;
-top:15px;
-right:15px;
-z-index:10;
+    position:fixed;
+    top:15px;
+    right:15px;
+    z-index:100; /* Subido para que no lo tape nada */
 }
 
 .lang button{
-padding:8px 16px;
-border-radius:20px;
-border:none;
-background:rgba(255,255,255,0.1);
-backdrop-filter:blur(10px);
-color:white;
-cursor:pointer;
-font-size:.9rem;
-transition:.3s;
-}
-
-.lang button:hover{
-background:#38bdf8;
-color:black;
+    padding:10px 18px;
+    border-radius:20px;
+    border:none;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Soporte Safari */
+    color:white;
+    cursor:pointer;
+    font-size:.85rem;
+    transition:.3s;
+    font-weight: 600;
 }
 
 /* ===== HERO ===== */
-
 .hero{
-min-height:100vh;
-display:flex;
-align-items:center;
-padding:0 8%;
-position:relative;
-background:
-linear-gradient(120deg,rgba(0,0,0,.65),rgba(0,0,0,.25)),
-url("./IMG/FONDO.jpg") center/cover no-repeat;
+    min-height: 100dvh; /* Usa dynamic viewport height para evitar problemas con la barra de navegación en cell */
+    display:flex;
+    align-items:center;
+    padding: 0 5%;
+    position:relative;
+    background: 
+        linear-gradient(120deg,rgba(0,0,0,.7),rgba(0,0,0,.3)),
+        url("./IMG/FONDO.jpg") center/cover no-repeat;
+    overflow: hidden;
 }
 
-/* glow */
-
+/* Brillo optimizado para no romper el layout en mobile */
 .hero::after{
-content:"";
-position:absolute;
-width:500px;
-height:500px;
-background:radial-gradient(circle,#38bdf8,transparent);
-filter:blur(140px);
-opacity:.25;
-top:-120px;
-right:-120px;
-animation:float 6s infinite alternate;
-}
-
-@keyframes float{
-from{transform:translateY(0);}
-to{transform:translateY(40px);}
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    background:radial-gradient(circle,#38bdf8,transparent);
+    filter:blur(80px);
+    opacity:.2;
+    top:-50px;
+    right:-50px;
+    z-index: 0;
 }
 
 /* content */
-
 .content{
-max-width:520px;
-animation:fadeUp 1s ease forwards;
-opacity:0;
-z-index:1;
+    width: 100%;
+    max-width:600px;
+    animation:fadeUp 1s ease forwards;
+    opacity:0;
+    z-index:1;
 }
 
 h1{
-font-size:2.5rem;
-margin-bottom:15px;
+    font-size: clamp(1.8rem, 8vw, 2.8rem); /* Tamaño fluido según pantalla */
+    margin-bottom: 10px;
+    line-height: 1.2;
 }
 
 #typing{
-color:#38bdf8;
-font-weight:600;
-min-height:30px;
+    color:#38bdf8;
+    font-weight:600;
+    font-size: clamp(1.1rem, 5vw, 1.5rem);
+    min-height: 1.6em;
+    display: block;
 }
 
 p{
-margin:15px 0 25px;
-opacity:.9;
-line-height:1.6;
+    margin: 20px 0 30px;
+    opacity:.9;
+    line-height: 1.5;
+    font-size: 1rem;
 }
 
 /* buttons */
-
 .buttons{
-display:flex;
-gap:15px;
-flex-wrap:wrap;
+    display:flex;
+    gap:12px;
 }
 
 .btn{
-padding:11px 24px;
-border-radius:25px;
-border:none;
-background:#38bdf8;
-color:black;
-cursor:pointer;
-font-weight:600;
-transition:.3s;
+    flex: 1; /* Los botones crecen igual en mobile */
+    max-width: 200px;
+    padding: 14px 0;
+    text-align: center;
+    border-radius:30px;
+    border:none;
+    background:#38bdf8;
+    color:black;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .btn.secondary{
-background:transparent;
-border:1.5px solid white;
-color:white;
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.4);
+    color:white;
+    backdrop-filter: blur(5px);
 }
 
-.btn:hover{
-transform:translateY(-3px);
-box-shadow:0 0 15px #38bdf8;
+.btn:active {
+    transform: scale(0.95); /* Feedback táctil al tocar en cell */
 }
 
-/* animation */
-
+/* Animación */
 @keyframes fadeUp{
-from{opacity:0;transform:translateY(30px);}
-to{opacity:1;transform:translateY(0);}
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
 }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE AJUSTES ===== */
 
-@media(max-width:900px){
+@media (max-width: 768px) {
+    .hero {
+        justify-content: center;
+        text-align: center;
+        padding-top: 60px; /* Espacio para el botón de idioma */
+    }
+    
+    .buttons {
+        justify-content: center;
+        width: 100%;
+    }
 
-.hero{
-padding:40px 25px;
-text-align:center;
-justify-content:center;
+    .hero::after {
+        width: 200px;
+        height: 200px;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
 
-.content{
-max-width:100%;
+@media (max-width: 480px) {
+    .buttons {
+        flex-direction: column; /* Botones uno encima del otro en pantallas muy chicas */
+        align-items: center;
+    }
+    .btn {
+        width: 100%;
+        max-width: 280px;
+    }
 }
-
-.buttons{
-justify-content:center;
-}
-
-}
-
-@media(max-width:600px){
-
-h1{
-font-size:1.9rem;
-}
-
-p{
-font-size:.95rem;
-}
-
-}
-
 </style>
 </head>
-
 <body>
 
-<!-- language button -->
-
 <div class="lang">
-<button onclick="toggleLang()">🌍 Language</button>
+    <button onclick="toggleLang()">🌍 Language</button>
 </div>
-
-<!-- hero -->
 
 <section class="hero">
-
-<div class="content">
-
-<h1 id="title">
-Hi, I'm Juan Francisco Jiménez
-</h1>
-
-<div id="typing"></div>
-
-<p id="desc">
-Turning ideas into useful digital solutions
-</p>
-
-<div class="buttons">
-<a href="aboutme.html"><button class="btn" id="aboutBtn">About me</button></a>
-<a href="project.html"><button class="btn secondary" id="projBtn">Projects</button></a>
-</div>
-
-</div>
-
+    <div class="content">
+        <h1 id="title">Hi, I'm Juan Francisco Jiménez</h1>
+        <div id="typing"></div>
+        <p id="desc">Turning ideas into useful digital solutions</p>
+        <div class="buttons">
+            <a href="aboutme.html" style="flex:1; max-width:200px;"><button class="btn" id="aboutBtn" style="width:100%">About me</button></a>
+            <a href="project.html" style="flex:1; max-width:200px;"><button class="btn secondary" id="projBtn" style="width:100%">Projects</button></a>
+        </div>
+    </div>
 </section>
 
 <script>
-
-/* ===== LANGUAGE SYSTEM ===== */
-
+/* El mismo Script que ya tenías funciona perfecto */
 let lang="en";
-
 const text={
-en:{
-title:"Hi, I'm Juan Francisco Jiménez",
-desc:"Turning ideas into useful digital solutions",
-about:"About me",
-projects:"Projects",
-typing:["Web Developer","System Builder","Problem Solver"]
-},
-es:{
-title:"Hola, soy Juan Francisco Jiménez",
-desc:"Transformando ideas en soluciones digitales útiles",
-about:"Sobre mí",
-projects:"Proyectos",
-typing:["Desarrollador Web","Creador de Sistemas","Solucionador de Problemas"]
-}
+    en:{
+        title:"Hi, I'm Juan Francisco Jiménez",
+        desc:"Turning ideas into useful digital solutions",
+        about:"About me",
+        projects:"Projects",
+        typing:["Web Developer","System Builder","Problem Solver"]
+    },
+    es:{
+        title:"Hola, soy Juan Francisco Jiménez",
+        desc:"Transformando ideas en soluciones digitales útiles",
+        about:"Sobre mí",
+        projects:"Proyectos",
+        typing:["Desarrollador Web","Creador de Sistemas","Solucionador de Problemas"]
+    }
 };
 
 function toggleLang(){
-
-lang=lang==="en"?"es":"en";
-
-document.getElementById("title").innerText=text[lang].title;
-document.getElementById("desc").innerText=text[lang].desc;
-document.getElementById("aboutBtn").innerText=text[lang].about;
-document.getElementById("projBtn").innerText=text[lang].projects;
-
-resetTyping();
+    lang=lang==="en"?"es":"en";
+    document.getElementById("title").innerText=text[lang].title;
+    document.getElementById("desc").innerText=text[lang].desc;
+    document.getElementById("aboutBtn").innerText=text[lang].about;
+    document.getElementById("projBtn").innerText=text[lang].projects;
+    resetTyping();
 }
-
-/* ===== TYPING EFFECT ===== */
 
 let i=0,j=0,current="",deleting=false,typingLoop;
-
 function typeEffect(){
-
-const words=text[lang].typing;
-current=words[i];
-
-if(!deleting){
-
-document.getElementById("typing").textContent=current.slice(0,j++);
-
-if(j>current.length) deleting=true;
-
-}else{
-
-document.getElementById("typing").textContent=current.slice(0,j--);
-
-if(j<0){
-deleting=false;
-i=(i+1)%words.length;
-}
-
-}
-
-typingLoop=setTimeout(typeEffect,deleting?60:120);
-
+    const words=text[lang].typing;
+    current=words[i];
+    if(!deleting){
+        document.getElementById("typing").textContent=current.slice(0,j++);
+        if(j>current.length) deleting=true;
+    }else{
+        document.getElementById("typing").textContent=current.slice(0,j--);
+        if(j<0){
+            deleting=false;
+            i=(i+1)%words.length;
+        }
+    }
+    typingLoop=setTimeout(typeEffect,deleting?60:120);
 }
 
 function resetTyping(){
-clearTimeout(typingLoop);
-i=0;
-j=0;
-deleting=false;
-typeEffect();
+    clearTimeout(typingLoop);
+    i=0; j=0; deleting=false;
+    typeEffect();
 }
-
 typeEffect();
-
 </script>
 
 </body>
