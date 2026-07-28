@@ -5,289 +5,341 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Proyectos — DevByJuan</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-/* ===== GLOBAL ===== */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+:root{
+  --bg:#12141c;
+  --bg2:#191c28;
+  --text:#edeff5;
+  --text-dim:#9aa0b4;
+  --accent:#f2a93b;
+  --accent-soft:rgba(242,169,59,.14);
+  --live:#35d0a0;
+  --live-soft:rgba(53,208,160,.12);
+  --line:rgba(255,255,255,.09);
 }
+
+*{ margin:0; padding:0; box-sizing:border-box; }
 
 body{
-    background: linear-gradient(135deg,#0f172a,#020617);
-    color:white;
-    min-height: 100vh;
-    overflow-x:hidden;
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
 }
 
-/* ===== BOTÓN VOLVER (GLASS) ===== */
-.nav-container {
-    padding: 30px 5% 0;
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
+/* ===== TOP BAR ===== */
+.topbar{
+  display:flex;
+  align-items:center;
+  padding:22px 5% 0;
 }
 
-.btn-back {
-    text-decoration: none;
-    color: #cbd5f5;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 12px 24px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 500;
-    transition: 0.3s;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+.btn-back{
+  text-decoration:none;
+  color:var(--text-dim);
+  background:var(--bg2);
+  padding:11px 18px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.78rem;
+  letter-spacing:.02em;
+  border:1px solid var(--line);
+  transition:.25s;
+}
+.btn-back:hover{ border-color:var(--accent); color:var(--accent); transform:translateX(-4px); }
+
+/* ===== HEADER ===== */
+.registry-header{
+  padding:50px 5% 40px;
+  text-align:center;
+}
+.eyebrow{
+  display:inline-block;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.72rem;
+  letter-spacing:.12em;
+  color:var(--accent);
+  border:1px solid rgba(242,169,59,.3);
+  background:var(--accent-soft);
+  padding:5px 12px;
+  border-radius:100px;
+  margin-bottom:18px;
+}
+.registry-header h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;
+  font-size:clamp(1.9rem, 5vw, 2.6rem);
+  letter-spacing:-.01em;
 }
 
-.btn-back:hover {
-    background: rgba(56, 189, 248, 0.1);
-    color: #38bdf8;
-    transform: translateX(-5px);
+/* ===== GRID ===== */
+.projects{ padding:0 5% 90px; }
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:26px;
+  max-width:1200px;
+  margin:0 auto;
 }
 
-/* ===== SECTION ===== */
-.projects {
-    padding: 40px 5% 90px;
+.project-card{
+  position:relative;
+  height:380px;
+  border-radius:16px;
+  overflow:hidden;
+  background:var(--bg2);
+  border:1px solid var(--line);
+  transition:.5s cubic-bezier(.4,0,.2,1);
+  animation:fadeUp .7s ease both;
 }
 
-.projects h2 {
-    text-align: center;
-    font-size: clamp(2rem, 5vw, 2.8rem);
-    margin-bottom: 50px;
-    font-weight: 700;
-    letter-spacing: -1px;
+.index-tag{
+  position:absolute;
+  top:16px; left:16px;
+  z-index:2;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.72rem;
+  color:rgba(255,255,255,.55);
+  background:rgba(18,20,28,.55);
+  backdrop-filter:blur(6px);
+  padding:4px 9px;
+  border-radius:6px;
+  border:1px solid var(--line);
 }
 
-/* GRID */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
+.status-tag{
+  position:absolute;
+  top:16px; right:16px;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.66rem;
+  letter-spacing:.04em;
+  padding:5px 10px;
+  border-radius:100px;
+  backdrop-filter:blur(6px);
+}
+.status-tag .dot{ width:6px; height:6px; border-radius:50%; }
+
+.status-tag.live{ background:var(--live-soft); color:var(--live); border:1px solid rgba(53,208,160,.35); }
+.status-tag.live .dot{ background:var(--live); box-shadow:0 0 0 0 rgba(53,208,160,.6); animation:pulse 2s infinite; }
+
+.status-tag.demo{ background:rgba(255,255,255,.06); color:var(--text-dim); border:1px solid var(--line); }
+.status-tag.demo .dot{ background:var(--text-dim); }
+
+.status-tag.dev{ background:var(--accent-soft); color:var(--accent); border:1px solid rgba(242,169,59,.3); }
+.status-tag.dev .dot{ background:var(--accent); }
+
+.project-card img{
+  width:100%; height:100%;
+  object-fit:cover;
+  transition:transform .8s ease;
 }
 
-/* ===== CARD ESTÉTICA ===== */
-.project-card {
-    position: relative;
-    height: 380px;
-    border-radius: 20px;
-    overflow: hidden;
-    background: #111;
-    transition: .5s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: fadeUp .8s ease both;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+.overlay{
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(18,20,28,.96) 12%, rgba(18,20,28,.5) 52%, transparent 100%);
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:22px;
 }
 
-.project-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform .8s ease;
+.overlay h3{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.3rem;
+  font-weight:600;
+  margin-bottom:4px;
+}
+.overlay p{
+  font-size:.86rem;
+  color:var(--text-dim);
+  font-weight:300;
+  margin-bottom:18px;
 }
 
-/* overlay más suave */
-.overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, 
-        rgba(2, 6, 23, 0.95) 10%, 
-        rgba(2, 6, 23, 0.4) 50%, 
-        transparent 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 25px;
-    transition: .4s;
+.actions{ display:flex; gap:10px; }
+.actions a{
+  flex:1;
+  text-align:center;
+  padding:10px;
+  border-radius:8px;
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  text-decoration:none;
+  font-weight:500;
+  font-size:.8rem;
+  border:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  transition:.25s;
+}
+.actions a:hover{ background:var(--accent); color:#15161c; border-color:var(--accent); }
+
+.project-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(242,169,59,.25);
+  box-shadow:0 20px 40px rgba(0,0,0,.45);
+}
+.project-card:hover img{ transform:scale(1.08); }
+
+@keyframes fadeUp{ from{opacity:0; transform:translateY(24px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pulse{
+  0%{ box-shadow:0 0 0 0 rgba(53,208,160,.5); }
+  70%{ box-shadow:0 0 0 7px rgba(53,208,160,0); }
+  100%{ box-shadow:0 0 0 0 rgba(53,208,160,0); }
 }
 
-.overlay h3 {
-    font-size: 1.4rem;
-    margin-bottom: 5px;
-    color: #38bdf8;
-}
-
-.overlay p {
-    font-size: .9rem;
-    color: #cbd5f5;
-    margin-bottom: 20px;
-    font-weight: 300;
-}
-
-/* actions */
-.actions {
-    display: flex;
-    gap: 12px;
-}
-
-.actions a {
-    flex: 1;
-    text-align: center;
-    padding: 10px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.08);
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: .85rem;
-    transition: .3s;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.actions a:hover {
-    background: #38bdf8;
-    color: #000;
-    border-color: #38bdf8;
-}
-
-/* hover effects */
-.project-card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.2);
-    border-color: rgba(56, 189, 248, 0.3);
-}
-
-.project-card:hover img {
-    transform: scale(1.1);
-}
-
-/* animation */
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width: 600px) {
-    .projects { padding-top: 20px; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .project-card { height: 320px; }
+@media(max-width:600px){
+  .registry-header{ padding-top:30px; }
+  .projects-grid{ grid-template-columns:1fr; }
+  .project-card{ height:340px; }
 }
 </style>
 </head>
 
 <body>
 
-<nav class="nav-container">
+<nav class="topbar">
     <a href="index.html" class="btn-back">
         <i class="fas fa-arrow-left"></i> Volver al inicio
     </a>
 </nav>
 
-<section class="projects">
-
+<header class="registry-header">
+    <span class="eyebrow">REGISTRO — 8 SISTEMAS</span>
     <h2>Mis Proyectos</h2>
+</header>
 
+<section class="projects">
     <div class="projects-grid">
 
         <div class="project-card">
+            <span class="index-tag">01</span>
+            <span class="status-tag live"><span class="dot"></span>EN PRODUCCIÓN</span>
             <img src="IMG/HIDENCUSTOMER.png" alt="HIDENCUSTOMER">
             <div class="overlay">
                 <h3>HIDENCUSTOMER</h3>
-                <p>Order Time Tracking System</p>
+                <p>Control de tiempos de pedidos en almacén</p>
                 <div class="actions">
-                    <a href="https://hidencustomer.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
-                    <a href="https://github.com/Lynch-JF/hidencustomer" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                    <a href="https://hidencustomer.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Ver demo</a>
+                    <a href="https://github.com/Lynch-JF/hidencustomer" target="_blank"><i class="fab fa-github"></i> Código</a>
                 </div>
             </div>
         </div>
 
         <div class="project-card">
+            <span class="index-tag">02</span>
+            <span class="status-tag live"><span class="dot"></span>EN PRODUCCIÓN</span>
             <img src="IMG/SHOWSERVICE.png" alt="SHOWSERVICE">
             <div class="overlay">
                 <h3>SHOWSERVICE</h3>
-                <p>IT & Logistics Ticket System</p>
+                <p>Sistema de tickets de soporte IT y logística</p>
                 <div class="actions">
-                    <a href="https://showservice.vercel.app/" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
-                    <a href="https://github.com/Lynch-JF/showservice" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                    <a href="https://showservice.vercel.app/" target="_blank"><i class="fas fa-external-link-alt"></i> Ver demo</a>
+                    <a href="https://github.com/Lynch-JF/showservice" target="_blank"><i class="fab fa-github"></i> Código</a>
                 </div>
             </div>
         </div>
 
         <div class="project-card">
+            <span class="index-tag">03</span>
+            <span class="status-tag demo"><span class="dot"></span>DEMO</span>
             <img src="IMG/Estancia.png" alt="Daycare">
             <div class="overlay">
                 <h3>Daycare</h3>
-                <p>School & Children Platform</p>
+                <p>Plataforma para estancia infantil</p>
                 <div class="actions">
-                    <a href="https://infantil.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
-                    <a href="https://github.com/Lynch-JF/care" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                    <a href="https://infantil.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Ver demo</a>
+                    <a href="https://github.com/Lynch-JF/care" target="_blank"><i class="fab fa-github"></i> Código</a>
                 </div>
             </div>
         </div>
 
         <div class="project-card">
+            <span class="index-tag">04</span>
+            <span class="status-tag demo"><span class="dot"></span>DEMO</span>
             <img src="IMG/FONDITO.png" alt="Fondito">
             <div class="overlay">
                 <h3>Fondito Ice Cream</h3>
-                <p>Sweet Ice Cream Website</p>
+                <p>Sitio web para heladería</p>
                 <div class="actions">
-                    <a href="https://fondito.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
-                    <a href="https://github.com/Lynch-JF/fondito" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                    <a href="https://fondito.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Ver demo</a>
+                    <a href="https://github.com/Lynch-JF/fondito" target="_blank"><i class="fab fa-github"></i> Código</a>
                 </div>
             </div>
         </div>
 
         <div class="project-card">
+            <span class="index-tag">05</span>
+            <span class="status-tag demo"><span class="dot"></span>DEMO</span>
             <img src="IMG/STARKCARS.png" alt="StarkCars">
             <div class="overlay">
                 <h3>StarkCars</h3>
-                <p>Sports Car Showcase</p>
+                <p>Catálogo de vehículos deportivos</p>
                 <div class="actions">
-                    <a href="https://starkcar.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
-                    <a href="https://github.com/Lynch-JF/Siter" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                    <a href="https://starkcar.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Ver demo</a>
+                    <a href="https://github.com/Lynch-JF/Siter" target="_blank"><i class="fab fa-github"></i> Código</a>
                 </div>
             </div>
         </div>
 
         <div class="project-card">
+            <span class="index-tag">06</span>
+            <span class="status-tag demo"><span class="dot"></span>DEMO</span>
             <img src="IMG/to-do.png" alt="To-Do">
             <div class="overlay">
                 <h3>To-Do App</h3>
-                <p>Task Manager</p>
+                <p>Gestor de tareas</p>
                 <div class="actions">
-                    <a href="https://to-do-zeta-henna.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
-                    <a href="https://github.com/Lynch-JF/to-do" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                    <a href="https://to-do-zeta-henna.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Ver demo</a>
+                    <a href="https://github.com/Lynch-JF/to-do" target="_blank"><i class="fab fa-github"></i> Código</a>
                 </div>
             </div>
         </div>
 
         <div class="project-card">
-            <img src="IMG/to-do.png" alt="CLOFY.RD">
+            <span class="index-tag">07</span>
+            <span class="status-tag demo"><span class="dot"></span>DEMO</span>
+            <img src="IMG/CLOFY.png" alt="CLOFY.RD">
             <div class="overlay">
                 <h3>CLOFY.RD</h3>
-                <p>Task Manager</p>
+                <p>E-commerce de moda dominicana</p>
                 <div class="actions">
-                    <a href="http://lynch-jf.github.io/Cloffy.rd/" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
-                    <a href="https://github.com/Lynch-JF/Cloffy.rd" target="_blank"><i class="fab fa-github"></i> Repo</a>
+                    <a href="http://lynch-jf.github.io/Cloffy.rd/" target="_blank"><i class="fas fa-external-link-alt"></i> Ver demo</a>
+                    <a href="https://github.com/Lynch-JF/Cloffy.rd" target="_blank"><i class="fab fa-github"></i> Código</a>
                 </div>
             </div>
         </div>
 
         <div class="project-card">
+            <span class="index-tag">08</span>
+            <span class="status-tag dev"><span class="dot"></span>EN DESARROLLO</span>
             <img src="IMG/FARMACIA.png" alt="Sales System">
             <div class="overlay">
                 <h3>Sales System</h3>
-                <p>Management Platform</p>
+                <p>Plataforma de gestión de ventas</p>
                 <div class="actions">
-                    <a href="#"><i class="fas fa-external-link-alt"></i> Live</a>
-                    <a href="#"><i class="fab fa-github"></i> Repo</a>
+                    <a href="#"><i class="fas fa-external-link-alt"></i> Ver demo</a>
+                    <a href="#"><i class="fab fa-github"></i> Código</a>
                 </div>
             </div>
         </div>
 
     </div>
-
 </section>
 
 </body>
