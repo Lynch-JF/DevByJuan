@@ -196,6 +196,133 @@ body{
 }
 .project-card:hover img{ transform:scale(1.08); }
 
+/* ===== BACKENDS SECTION ===== */
+.backends{ padding:0 5% 100px; }
+.backends-header{
+  text-align:center;
+  padding-bottom:40px;
+}
+.backends-header h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;
+  font-size:clamp(1.6rem, 4vw, 2.2rem);
+  letter-spacing:-.01em;
+  margin-top:16px;
+}
+.backends-header p{
+  color:var(--text-dim);
+  font-size:.92rem;
+  margin-top:10px;
+  max-width:480px;
+  margin-left:auto;
+  margin-right:auto;
+  font-weight:300;
+}
+
+.backends-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+  gap:22px;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+.backend-card{
+  position:relative;
+  border-radius:16px;
+  background:var(--bg2);
+  border:1px solid var(--line);
+  padding:22px 22px 20px;
+  transition:.3s ease;
+  animation:fadeUp .7s ease both;
+}
+.backend-card:hover{
+  border-color:rgba(242,169,59,.25);
+  transform:translateY(-4px);
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+
+.backend-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+.backend-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:600;
+  font-size:1.08rem;
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+.backend-name i{ color:var(--text-dim); font-size:.95rem; }
+
+.backend-domain{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.72rem;
+  color:var(--text-dim);
+  margin-bottom:14px;
+  word-break:break-all;
+}
+
+.backend-desc{
+  font-size:.85rem;
+  color:var(--text-dim);
+  font-weight:300;
+  line-height:1.5;
+  margin-bottom:16px;
+}
+
+.backend-tech{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
+.tech-pill{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.68rem;
+  padding:4px 10px;
+  border-radius:6px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--line);
+  color:var(--text-dim);
+}
+
+.backend-actions{ display:flex; gap:10px; }
+.backend-actions a{
+  flex:1;
+  text-align:center;
+  padding:9px;
+  border-radius:8px;
+  background:rgba(255,255,255,.05);
+  color:var(--text);
+  text-decoration:none;
+  font-weight:500;
+  font-size:.78rem;
+  border:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  transition:.25s;
+}
+.backend-actions a:hover{ background:var(--accent); color:#15161c; border-color:var(--accent); }
+
+.backend-card.placeholder{
+  border:1px dashed var(--line);
+  background:transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:220px;
+  color:var(--text-dim);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.82rem;
+  text-align:center;
+  gap:10px;
+  flex-direction:column;
+}
+.backend-card.placeholder i{ font-size:1.3rem; color:var(--text-dim); }
+.backend-card.placeholder:hover{ border-color:rgba(242,169,59,.35); color:var(--accent); transform:none; box-shadow:none; }
+.backend-card.placeholder:hover i{ color:var(--accent); }
+
 @keyframes fadeUp{ from{opacity:0; transform:translateY(24px);} to{opacity:1; transform:translateY(0);} }
 @keyframes pulse{
   0%{ box-shadow:0 0 0 0 rgba(53,208,160,.5); }
@@ -207,6 +334,7 @@ body{
   .registry-header{ padding-top:30px; }
   .projects-grid{ grid-template-columns:1fr; }
   .project-card{ height:340px; }
+  .backends-grid{ grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -220,7 +348,7 @@ body{
 </nav>
 
 <header class="registry-header">
-    <span class="eyebrow">REGISTRO — 4 SISTEMAS</span>
+    <span class="eyebrow">REGISTRO — 5 SISTEMAS</span>
     <h2>Mis Proyectos</h2>
 </header>
 
@@ -293,6 +421,64 @@ body{
                     <a href="https://github.com/Lynch-JF/RetailSystems"><i class="fab fa-github"></i> Código</a>
                 </div>
             </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="backends">
+    <div class="backends-header">
+        <span class="eyebrow">REGISTRO — BACKENDS</span>
+        <h2>Sistemas detrás del sistema</h2>
+        <p>APIs y servidores que corren en producción, sin interfaz propia pero sosteniendo la operación real.</p>
+    </div>
+
+    <div class="backends-grid">
+
+        <div class="backend-card">
+            <div class="backend-top">
+                <div class="backend-name"><i class="fab fa-github"></i>gm-tickets-backend</div>
+                <span class="status-tag live" style="position:static;"><span class="dot"></span>ONLINE</span>
+            </div>
+            <div class="backend-domain">gm-tickets-backend-production.up.railway.app</div>
+            <div class="backend-desc">API del sistema de tickets de TI de Grupo Michel: usuarios, tickets, chat interno y notificaciones.</div>
+            <div class="backend-tech">
+                <span class="tech-pill">Node.js</span>
+                <span class="tech-pill">Express</span>
+                <span class="tech-pill">PostgreSQL</span>
+                <span class="tech-pill">Railway</span>
+            </div>
+            <div class="backend-actions">
+                <a href="https://github.com/Lynch-JF/gm-tickets-backend" target="_blank"><i class="fab fa-github"></i> Repositorio</a>
+            </div>
+        </div>
+
+        <div class="backend-card">
+            <div class="backend-top">
+                <div class="backend-name"><i class="fab fa-github"></i>hidenback-end</div>
+                <span class="status-tag live" style="position:static;"><span class="dot"></span>ONLINE</span>
+            </div>
+            <div class="backend-domain">hidenback-end-production.up.railway.app</div>
+            <div class="backend-desc">API del sistema de gestión de pedidos (GM Pedidos): historial, rutas y control de tiempos.</div>
+            <div class="backend-tech">
+                <span class="tech-pill">Node.js</span>
+                <span class="tech-pill">Express</span>
+                <span class="tech-pill">Railway</span>
+            </div>
+            <div class="backend-actions">
+                <a href="https://github.com/Lynch-JF/hidenback-end" target="_blank"><i class="fab fa-github"></i> Repositorio</a>
+            </div>
+        </div>
+
+        <!-- Placeholder: duplica una .backend-card de arriba y rellena estos datos -->
+        <div class="backend-card placeholder">
+            <i class="fas fa-plus"></i>
+            Agregar backend
+        </div>
+
+        <div class="backend-card placeholder">
+            <i class="fas fa-plus"></i>
+            Agregar backend
         </div>
 
     </div>
