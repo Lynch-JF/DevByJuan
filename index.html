@@ -13,15 +13,21 @@
 :root{
   --bg:#12141c;
   --bg2:#191c28;
+  --panel:#1c202c;
+  --panel-line:rgba(255,255,255,.08);
   --text:#edeff5;
   --text-dim:#9aa0b4;
   --accent:#f2a93b;
   --accent-soft:rgba(242,169,59,.14);
   --live:#35d0a0;
+  --live-soft:rgba(53,208,160,.12);
+  --pending:#f2a93b;
   --line:rgba(255,255,255,.09);
 }
 
 *{ margin:0; padding:0; box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
 
 body{
   font-family:'Inter',sans-serif;
@@ -31,17 +37,18 @@ body{
 }
 
 .mono{ font-family:'IBM Plex Mono',monospace; }
+a{ color:inherit; }
 
 /* ===== TOP BAR ===== */
 .topbar{
   position:fixed;
   top:0; left:0; right:0;
-  z-index:100;
+  z-index:200;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:20px 5%;
-  background:rgba(18,20,28,.6);
+  padding:18px 5%;
+  background:rgba(18,20,28,.65);
   backdrop-filter:blur(10px);
   -webkit-backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
@@ -52,8 +59,37 @@ body{
   font-size:.95rem;
   font-weight:500;
   letter-spacing:.02em;
+  z-index:2;
 }
-.logo span{ color:var(--text-dim); }
+.logo span{ color:var(--accent); }
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:34px;
+  list-style:none;
+}
+.nav-links a{
+  font-size:.88rem;
+  font-weight:500;
+  text-decoration:none;
+  color:var(--text-dim);
+  position:relative;
+  padding:4px 0;
+  transition:.2s;
+}
+.nav-links a:hover{ color:var(--text); }
+.nav-links a.current{ color:var(--accent); }
+.nav-links a.current::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:-4px;
+  height:2px;
+  background:var(--accent);
+  border-radius:2px;
+}
+
+.nav-right{ display:flex; align-items:center; gap:18px; }
 
 .lang-toggle{
   display:flex;
@@ -75,15 +111,41 @@ body{
 .lang-btn.active{ background:var(--accent-soft); color:var(--accent); }
 .lang-btn:hover{ color:var(--text); }
 
+.nav-cta{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 18px;
+  border-radius:8px;
+  border:1px solid rgba(242,169,59,.4);
+  color:var(--accent);
+  font-size:.82rem;
+  font-weight:600;
+  text-decoration:none;
+  transition:.2s;
+}
+.nav-cta:hover{ background:var(--accent-soft); }
+
+.nav-toggle{
+  display:none;
+  background:none;
+  border:none;
+  color:var(--text);
+  font-size:1.2rem;
+  cursor:pointer;
+  z-index:2;
+}
+
 /* ===== HERO ===== */
 .hero{
   min-height:100dvh;
   display:flex;
   align-items:center;
-  padding:0 5%;
+  padding:120px 5% 60px;
   position:relative;
   background:
-    linear-gradient(120deg, rgba(18,20,28,.88), rgba(18,20,28,.55)),
+    linear-gradient(90deg, rgba(18,20,28,.97) 0%, rgba(18,20,28,.86) 38%, rgba(18,20,28,.45) 68%, rgba(18,20,28,.72) 100%),
+    linear-gradient(0deg, rgba(18,20,28,.55), rgba(18,20,28,.1) 40%),
     url("./IMG/FONDO.jpg") center/cover no-repeat;
   overflow:hidden;
 }
@@ -93,17 +155,27 @@ body{
   width:420px; height:420px;
   background:radial-gradient(circle, var(--accent), transparent 70%);
   filter:blur(100px);
-  opacity:.14;
+  opacity:.1;
   top:-100px; right:-100px;
   z-index:0;
 }
 
-.content{
+.hero-grid{
   width:100%;
-  max-width:620px;
-  animation:fadeUp 1s ease forwards;
-  opacity:0;
+  max-width:1280px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:56px;
+  align-items:center;
   z-index:1;
+  position:relative;
+}
+
+.content{
+  max-width:600px;
+  animation:fadeUp .9s ease forwards;
+  opacity:0;
 }
 
 .eyebrow{
@@ -130,7 +202,7 @@ body{
 h1{
   font-family:'Space Grotesk',sans-serif;
   font-weight:600;
-  font-size:clamp(2rem, 6vw, 3.1rem);
+  font-size:clamp(2rem, 4.4vw, 3rem);
   line-height:1.15;
   letter-spacing:-.01em;
   margin-bottom:14px;
@@ -146,7 +218,7 @@ h1{
   font-family:'IBM Plex Mono',monospace;
   color:var(--accent);
   font-weight:500;
-  font-size:clamp(1rem, 4vw, 1.25rem);
+  font-size:clamp(1rem, 3vw, 1.2rem);
 }
 .cursor{
   color:var(--accent);
@@ -156,7 +228,7 @@ h1{
 }
 
 p#desc{
-  margin:18px 0 32px;
+  margin:18px 0 30px;
   color:var(--text-dim);
   line-height:1.6;
   font-size:1.02rem;
@@ -164,7 +236,7 @@ p#desc{
   max-width:480px;
 }
 
-.buttons{ display:flex; gap:14px; flex-wrap:wrap; }
+.buttons{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:38px; }
 
 .btn{
   display:inline-flex;
@@ -191,6 +263,140 @@ p#desc{
 }
 .btn.secondary:hover{ border-color:var(--accent); color:var(--accent); box-shadow:none; }
 
+/* stats row */
+.stats-row{
+  display:flex;
+  gap:32px;
+  padding-top:26px;
+  border-top:1px solid var(--line);
+  margin-bottom:32px;
+  flex-wrap:wrap;
+}
+.stat{ display:flex; gap:12px; align-items:flex-start; }
+.stat-icon{
+  width:38px; height:38px;
+  border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--accent-soft);
+  color:var(--accent);
+  font-size:.9rem;
+  flex-shrink:0;
+}
+.stat-num{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:1.3rem; line-height:1.1; }
+.stat-label{ font-size:.8rem; color:var(--text-dim); line-height:1.3; margin-top:2px; }
+
+/* tech pills */
+.tech-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.72rem;
+  letter-spacing:.08em;
+  color:var(--text-dim);
+  margin-bottom:12px;
+  text-transform:uppercase;
+}
+.tech-pills{ display:flex; flex-wrap:wrap; gap:10px; }
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 14px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.02);
+  font-size:.82rem;
+  font-weight:500;
+  color:var(--text);
+}
+.pill i, .pill .pill-dot{ color:var(--accent); font-size:.85rem; }
+
+/* ===== SYSTEMS PANEL (signature) ===== */
+.systems-panel{
+  background:var(--panel);
+  border:1px solid var(--panel-line);
+  border-radius:16px;
+  padding:26px 26px 22px;
+  animation:fadeUp 1s .15s ease forwards;
+  opacity:0;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.5);
+}
+.systems-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+.systems-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.78rem;
+  letter-spacing:.04em;
+  color:var(--text-dim);
+}
+.systems-title span{ color:var(--live); }
+
+.sys-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid var(--panel-line);
+}
+.sys-row:last-of-type{ border-bottom:none; }
+.sys-name{ font-size:.9rem; font-weight:500; }
+.sys-meta{ font-size:.74rem; color:var(--text-dim); margin-top:2px; }
+.sys-status{
+  display:flex; align-items:center; gap:7px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.72rem;
+  padding:5px 10px;
+  border-radius:100px;
+  white-space:nowrap;
+}
+.sys-status .dot{ width:6px; height:6px; border-radius:50%; }
+.sys-status.live{ background:var(--live-soft); color:var(--live); }
+.sys-status.live .dot{ background:var(--live); }
+.sys-status.dev{ background:var(--accent-soft); color:var(--pending); }
+.sys-status.dev .dot{ background:var(--pending); }
+
+.systems-quote{
+  margin-top:20px;
+  padding-top:18px;
+  border-top:1px solid var(--panel-line);
+  display:flex;
+  gap:12px;
+}
+.avatar{
+  width:36px; height:36px;
+  border-radius:50%;
+  background:var(--accent-soft);
+  color:var(--accent);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:600;
+  font-size:.78rem;
+  flex-shrink:0;
+}
+.systems-quote p{ font-size:.85rem; color:var(--text-dim); line-height:1.5; }
+.systems-quote strong{ display:block; color:var(--text); font-size:.85rem; margin-bottom:3px; }
+
+/* ===== CONTACT STRIP ===== */
+#contacto{
+  padding:70px 5%;
+  border-top:1px solid var(--line);
+  background:var(--bg2);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:24px;
+}
+#contacto h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(1.4rem,3vw,1.9rem);
+  font-weight:600;
+  max-width:520px;
+}
+.contact-links{ display:flex; gap:14px; flex-wrap:wrap; }
+
 @keyframes fadeUp{ from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
 @keyframes blink{ 50%{ opacity:0; } }
 @keyframes pulse{
@@ -199,17 +405,47 @@ p#desc{
   100%{ box-shadow:0 0 0 0 rgba(53,208,160,0); }
 }
 
+@media (prefers-reduced-motion:reduce){
+  *{ animation:none !important; transition:none !important; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:980px){
+  .hero-grid{ grid-template-columns:1fr; }
+  .systems-panel{ max-width:480px; }
+}
+
 @media (max-width:768px){
-  .hero{ justify-content:center; text-align:center; padding-top:70px; }
+  .nav-links{
+    position:fixed;
+    inset:0;
+    background:var(--bg);
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:28px;
+    transform:translateX(100%);
+    transition:transform .3s ease;
+    z-index:1;
+  }
+  .nav-links.open{ transform:translateX(0); }
+  .nav-links a{ font-size:1.2rem; }
+  .nav-right .lang-toggle{ display:none; }
+  .nav-toggle{ display:block; }
+  .hero{ padding-top:100px; text-align:center; }
   .eyebrow{ margin-left:auto; margin-right:auto; }
   .buttons{ justify-content:center; width:100%; }
   p#desc{ margin-left:auto; margin-right:auto; }
+  .stats-row{ justify-content:center; text-align:left; }
+  .tech-pills{ justify-content:center; }
   .hero-glow{ width:260px; height:260px; top:15%; left:50%; transform:translate(-50%,-50%); }
+  #contacto{ flex-direction:column; text-align:center; justify-content:center; }
 }
 
 @media (max-width:480px){
   .buttons{ flex-direction:column; align-items:stretch; }
   .btn{ justify-content:center; }
+  .stats-row{ gap:20px; }
 }
 </style>
 </head>
@@ -217,23 +453,112 @@ p#desc{
 
 <header class="topbar">
   <span class="logo">JF<span>/dev</span></span>
-  <div class="lang-toggle">
-    <button class="lang-btn active" id="langEN" onclick="setLang('en')">EN</button>
-    <button class="lang-btn" id="langES" onclick="setLang('es')">ES</button>
+
+  <nav>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="current" id="navInicio">Home</a></li>
+      <li><a href="aboutme.html" id="navSobre">About me</a></li>
+      <li><a href="project.html" id="navProyectos">Projects</a></li>
+      <li><a href="#contacto" id="navContacto">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="langEN" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="langES" onclick="setLang('es')">ES</button>
+    </div>
+    <a href="#contacto" class="nav-cta" id="navCta">Let's talk</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
   </div>
 </header>
 
 <section class="hero">
   <div class="hero-glow"></div>
-  <div class="content">
-    <div class="eyebrow"><span class="dot"></span><span id="status">AVAILABLE FOR WORK</span></div>
-    <h1 id="title">Hi, I'm Juan Francisco Jiménez</h1>
-    <div class="typing-row"><span id="typing"></span><span class="cursor">▍</span></div>
-    <p id="desc">I build systems real companies run their operations on.</p>
-    <div class="buttons">
-      <a href="aboutme.html" class="btn"><span id="aboutBtn">About me</span> <i class="fas fa-arrow-right"></i></a>
-      <a href="project.html" class="btn secondary"><span id="projBtn">Projects</span> <i class="fas fa-arrow-right"></i></a>
+  <div class="hero-grid">
+
+    <div class="content">
+      <div class="eyebrow"><span class="dot"></span><span id="status">AVAILABLE FOR WORK</span></div>
+      <h1 id="title">Hi, I'm Juan Francisco Jiménez</h1>
+      <div class="typing-row"><span id="typing"></span><span class="cursor">▍</span></div>
+      <p id="desc">I build systems real companies run their operations on.</p>
+
+      <div class="buttons">
+        <a href="aboutme.html" class="btn"><span id="aboutBtn">About me</span> <i class="fas fa-arrow-right"></i></a>
+        <a href="project.html" class="btn secondary"><span id="projBtn">Projects</span> <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
+          <div><div class="stat-num">5+</div><div class="stat-label" id="stat1">Systems in production</div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon"><i class="fas fa-code-branch"></i></div>
+          <div><div class="stat-num" id="stat2num">Full-Stack</div><div class="stat-label" id="stat2">Web &amp; desktop</div></div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon"><i class="fas fa-location-dot"></i></div>
+          <div><div class="stat-num">DR</div><div class="stat-label" id="stat3">Based in Dominican Republic</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="tech-label" id="techLabel">Stack I work with</div>
+        <div class="tech-pills">
+          <span class="pill"><i class="fab fa-node-js"></i>Node.js</span>
+          <span class="pill"><i class="fab fa-js"></i>JavaScript</span>
+          <span class="pill"><span class="pill-dot">◆</span>Supabase</span>
+          <span class="pill"><i class="fas fa-train"></i>Railway</span>
+          <span class="pill"><i class="fas fa-cloud"></i>Cloudflare</span>
+          <span class="pill"><span class="pill-dot">#</span>C# / .NET</span>
+        </div>
+      </div>
     </div>
+
+    <div class="systems-panel">
+      <div class="systems-head">
+        <span class="systems-title"><span>●</span> <span id="panelTitle">// LIVE SYSTEMS</span></span>
+      </div>
+
+      <div class="sys-row">
+        <div>
+          <div class="sys-name">GM Tickets TI</div>
+          <div class="sys-meta" id="sys1meta">Internal IT ticketing platform</div>
+        </div>
+        <div class="sys-status live"><span class="dot"></span><span id="sys1status">In production</span></div>
+      </div>
+
+      <div class="sys-row">
+        <div>
+          <div class="sys-name">GM Pedidos</div>
+          <div class="sys-meta" id="sys2meta">Order management system</div>
+        </div>
+        <div class="sys-status dev"><span class="dot"></span><span id="sys2status">Migrating backend</span></div>
+      </div>
+
+      <div class="sys-row">
+        <div>
+          <div class="sys-name">Nexo CRM</div>
+          <div class="sys-meta" id="sys3meta">Multi-channel inbox SaaS</div>
+        </div>
+        <div class="sys-status dev"><span class="dot"></span><span id="sys3status">In development</span></div>
+      </div>
+
+      <div class="systems-quote">
+        <div class="avatar">JF</div>
+        <p><strong id="quoteName">Juan Francisco Jiménez</strong><span id="quoteText">I focus on tools that hold up in daily operations, not just demos.</span></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="contacto">
+  <h2 id="contactHeading">Have a system that needs building or fixing?</h2>
+  <div class="contact-links">
+    <a href="mailto:hello@jf.dev" class="btn"><span id="contactBtn">Write to me</span> <i class="fas fa-arrow-right"></i></a>
+    <a href="#" class="btn secondary"><i class="fab fa-linkedin"></i>&nbsp; LinkedIn</a>
   </div>
 </section>
 
@@ -241,20 +566,40 @@ p#desc{
 let lang="en";
 const text={
     en:{
+        navInicio:"Home", navSobre:"About me", navProyectos:"Projects", navContacto:"Contact", navCta:"Let's talk",
         title:"Hi, I'm Juan Francisco Jiménez",
         status:"AVAILABLE FOR WORK",
         desc:"I build systems real companies run their operations on.",
         about:"About me",
         projects:"Projects",
-        typing:["Web Developer","System Builder","Problem Solver"]
+        typing:["Web Developer","System Builder","Problem Solver"],
+        stat1:"Systems in production", stat2num:"Full-Stack", stat2:"Web & desktop", stat3:"Based in Dominican Republic",
+        techLabel:"Stack I work with",
+        panelTitle:"// LIVE SYSTEMS",
+        sys1meta:"Internal IT ticketing platform", sys1status:"In production",
+        sys2meta:"Order management system", sys2status:"Migrating backend",
+        sys3meta:"Multi-channel inbox SaaS", sys3status:"In development",
+        quoteText:"I focus on tools that hold up in daily operations, not just demos.",
+        contactHeading:"Have a system that needs building or fixing?",
+        contactBtn:"Write to me"
     },
     es:{
+        navInicio:"Inicio", navSobre:"Sobre mí", navProyectos:"Proyectos", navContacto:"Contacto", navCta:"Hablemos",
         title:"Hola, soy Juan Francisco Jiménez",
         status:"DISPONIBLE PARA PROYECTOS",
         desc:"Construyo sistemas que empresas reales usan todos los días.",
         about:"Sobre mí",
         projects:"Proyectos",
-        typing:["Desarrollador Web","Creador de Sistemas","Solucionador de Problemas"]
+        typing:["Desarrollador Web","Creador de Sistemas","Solucionador de Problemas"],
+        stat1:"Sistemas en producción", stat2num:"Full-Stack", stat2:"Web y escritorio", stat3:"Basado en República Dominicana",
+        techLabel:"Stack que uso",
+        panelTitle:"// SISTEMAS ACTIVOS",
+        sys1meta:"Plataforma interna de tickets TI", sys1status:"En producción",
+        sys2meta:"Sistema de gestión de pedidos", sys2status:"Migrando backend",
+        sys3meta:"SaaS de bandeja multicanal", sys3status:"En desarrollo",
+        quoteText:"Me enfoco en herramientas que aguantan la operación diaria, no solo demos.",
+        contactHeading:"¿Tienes un sistema que necesita construirse o arreglarse?",
+        contactBtn:"Escríbeme"
     }
 };
 
@@ -264,11 +609,32 @@ function setLang(target){
     document.getElementById("langEN").classList.toggle("active", target==="en");
     document.getElementById("langES").classList.toggle("active", target==="es");
     document.documentElement.lang = target;
-    document.getElementById("title").innerText=text[lang].title;
-    document.getElementById("status").innerText=text[lang].status;
-    document.getElementById("desc").innerText=text[lang].desc;
-    document.getElementById("aboutBtn").innerText=text[lang].about;
-    document.getElementById("projBtn").innerText=text[lang].projects;
+    const t=text[lang];
+    document.getElementById("navInicio").innerText=t.navInicio;
+    document.getElementById("navSobre").innerText=t.navSobre;
+    document.getElementById("navProyectos").innerText=t.navProyectos;
+    document.getElementById("navContacto").innerText=t.navContacto;
+    document.getElementById("navCta").innerText=t.navCta;
+    document.getElementById("title").innerText=t.title;
+    document.getElementById("status").innerText=t.status;
+    document.getElementById("desc").innerText=t.desc;
+    document.getElementById("aboutBtn").innerText=t.about;
+    document.getElementById("projBtn").innerText=t.projects;
+    document.getElementById("stat1").innerText=t.stat1;
+    document.getElementById("stat2num").innerText=t.stat2num;
+    document.getElementById("stat2").innerText=t.stat2;
+    document.getElementById("stat3").innerText=t.stat3;
+    document.getElementById("techLabel").innerText=t.techLabel;
+    document.getElementById("panelTitle").innerText=t.panelTitle;
+    document.getElementById("sys1meta").innerText=t.sys1meta;
+    document.getElementById("sys1status").innerText=t.sys1status;
+    document.getElementById("sys2meta").innerText=t.sys2meta;
+    document.getElementById("sys2status").innerText=t.sys2status;
+    document.getElementById("sys3meta").innerText=t.sys3meta;
+    document.getElementById("sys3status").innerText=t.sys3status;
+    document.getElementById("quoteText").innerText=t.quoteText;
+    document.getElementById("contactHeading").innerText=t.contactHeading;
+    document.getElementById("contactBtn").innerText=t.contactBtn;
     resetTyping();
 }
 
@@ -295,6 +661,24 @@ function resetTyping(){
     typeEffect();
 }
 typeEffect();
+
+// mobile nav toggle
+const navToggle=document.getElementById("navToggle");
+const navLinks=document.getElementById("navLinks");
+navToggle.addEventListener("click",()=>{
+    navLinks.classList.toggle("open");
+    const icon=navToggle.querySelector("i");
+    icon.classList.toggle("fa-bars");
+    icon.classList.toggle("fa-xmark");
+});
+navLinks.querySelectorAll("a").forEach(a=>{
+    a.addEventListener("click",()=>{
+        navLinks.classList.remove("open");
+        const icon=navToggle.querySelector("i");
+        icon.classList.add("fa-bars");
+        icon.classList.remove("fa-xmark");
+    });
+});
 </script>
 
 </body>
