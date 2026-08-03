@@ -286,7 +286,8 @@ body{
 }
 
 .backend-actions{ display:flex; gap:10px; }
-.backend-actions a{
+.backend-actions a,
+.backend-actions button{
   flex:1;
   text-align:center;
   padding:9px;
@@ -302,8 +303,11 @@ body{
   justify-content:center;
   gap:6px;
   transition:.25s;
+  font-family:'Inter',sans-serif;
+  cursor:pointer;
 }
-.backend-actions a:hover{ background:var(--accent); color:#15161c; border-color:var(--accent); }
+.backend-actions a:hover,
+.backend-actions button:hover{ background:var(--accent); color:#15161c; border-color:var(--accent); }
 
 .backend-card.placeholder{
   border:1px dashed var(--line);
@@ -330,11 +334,136 @@ body{
   100%{ box-shadow:0 0 0 0 rgba(53,208,160,0); }
 }
 
+/* ===== MODAL ===== */
+.modal-overlay{
+  position:fixed; inset:0;
+  background:rgba(10,11,16,.72);
+  backdrop-filter:blur(4px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:20px;
+  animation:fadeIn .25s ease both;
+}
+.modal-overlay.open{ display:flex; }
+
+@keyframes fadeIn{ from{opacity:0;} to{opacity:1;} }
+
+.modal-box{
+  background:var(--bg2);
+  border:1px solid var(--line);
+  border-radius:18px;
+  max-width:560px;
+  width:100%;
+  max-height:85vh;
+  overflow-y:auto;
+  padding:32px;
+  position:relative;
+  animation:modalIn .3s cubic-bezier(.4,0,.2,1) both;
+}
+
+@keyframes modalIn{ from{opacity:0; transform:translateY(16px) scale(.98);} to{opacity:1; transform:translateY(0) scale(1);} }
+
+.modal-close{
+  position:absolute;
+  top:18px; right:18px;
+  width:34px; height:34px;
+  border-radius:9px;
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--line);
+  color:var(--text-dim);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:.2s;
+  font-size:.9rem;
+}
+.modal-close:hover{ background:var(--accent); color:#15161c; border-color:var(--accent); }
+
+.modal-eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.68rem;
+  letter-spacing:.1em;
+  color:var(--accent);
+  margin-bottom:10px;
+  display:block;
+}
+
+.modal-box h3{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.5rem;
+  font-weight:600;
+  margin-bottom:4px;
+  padding-right:40px;
+}
+
+.modal-domain{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.74rem;
+  color:var(--text-dim);
+  margin-bottom:20px;
+  word-break:break-all;
+}
+
+.modal-section{ margin-bottom:20px; }
+.modal-section h4{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.72rem;
+  letter-spacing:.06em;
+  color:var(--text-dim);
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+.modal-section p{
+  font-size:.9rem;
+  line-height:1.65;
+  color:var(--text);
+  font-weight:300;
+}
+.modal-section ul{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.modal-section ul li{
+  font-size:.87rem;
+  color:var(--text-dim);
+  font-weight:300;
+  display:flex;
+  gap:8px;
+  align-items:flex-start;
+  line-height:1.5;
+}
+.modal-section ul li i{ color:var(--accent); font-size:.7rem; margin-top:5px; }
+
+.modal-tech{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
+
+.modal-repo{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:12px;
+  border-radius:10px;
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  text-decoration:none;
+  font-weight:500;
+  font-size:.85rem;
+  border:1px solid var(--line);
+  transition:.25s;
+}
+.modal-repo:hover{ background:var(--accent); color:#15161c; border-color:var(--accent); }
+
 @media(max-width:600px){
   .registry-header{ padding-top:30px; }
   .projects-grid{ grid-template-columns:1fr; }
   .project-card{ height:340px; }
   .backends-grid{ grid-template-columns:1fr; }
+  .modal-box{ padding:26px 22px; }
 }
 </style>
 </head>
@@ -449,7 +578,7 @@ body{
                 <span class="tech-pill">Railway</span>
             </div>
             <div class="backend-actions">
-                <a href="https://github.com/Lynch-JF/gm-tickets-backend" target="_blank"><i class="fab fa-github"></i> Repositorio</a>
+                <button type="button" onclick="openBackendModal('gm-tickets')"><i class="fas fa-circle-info"></i> Ver detalles</button>
             </div>
         </div>
 
@@ -466,7 +595,7 @@ body{
                 <span class="tech-pill">Railway</span>
             </div>
             <div class="backend-actions">
-                <a href="https://github.com/Lynch-JF/hidenback-end" target="_blank"><i class="fab fa-github"></i> Repositorio</a>
+                <button type="button" onclick="openBackendModal('hidenback')"><i class="fas fa-circle-info"></i> Ver detalles</button>
             </div>
         </div>
 
@@ -483,6 +612,90 @@ body{
 
     </div>
 </section>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="backendModal" onclick="closeBackendModalOnOverlay(event)">
+    <div class="modal-box" id="modalBox">
+        <!-- contenido inyectado por JS -->
+    </div>
+</div>
+
+<script>
+const backendData = {
+    'gm-tickets': {
+        name: 'gm-tickets-backend',
+        domain: 'gm-tickets-backend-production.up.railway.app',
+        repo: 'https://github.com/Lynch-JF/gm-tickets-backend',
+        resumen: 'API que centraliza el soporte técnico interno de Grupo Michel: gestiona usuarios, tickets, mensajería en tiempo real y notificaciones para el equipo de TI.',
+        funciones: [
+            'Autenticación y roles de usuario (agente, supervisor, solicitante)',
+            'Creación, asignación y seguimiento del ciclo de vida de tickets',
+            'Chat interno por ticket para coordinación entre soporte y solicitante',
+            'Notificaciones automáticas ante cambios de estado o nuevos mensajes',
+            'Endpoints de reportes para medir tiempos de respuesta y resolución'
+        ],
+        tech: ['Node.js', 'Express', 'PostgreSQL', 'Railway']
+    },
+    'hidenback': {
+        name: 'hidenback-end',
+        domain: 'hidenback-end-production.up.railway.app',
+        repo: 'https://github.com/Lynch-JF/hidenback-end',
+        resumen: 'API que da soporte al sistema de gestión de pedidos (GM Pedidos), controlando el historial de órdenes, las rutas de entrega y los tiempos de cada etapa del proceso.',
+        funciones: [
+            'Registro y consulta del historial completo de pedidos',
+            'Asignación y seguimiento de rutas de entrega',
+            'Control de tiempos por etapa (preparación, salida, entrega)',
+            'Endpoints consumidos por HIDENSERVICE-II para el frontend en tiempo real'
+        ],
+        tech: ['Node.js', 'Express', 'Railway']
+    }
+};
+
+function openBackendModal(id){
+    const data = backendData[id];
+    if(!data) return;
+
+    const funcionesHtml = data.funciones.map(f => `<li><i class="fas fa-caret-right"></i>${f}</li>`).join('');
+    const techHtml = data.tech.map(t => `<span class="tech-pill">${t}</span>`).join('');
+
+    document.getElementById('modalBox').innerHTML = `
+        <button class="modal-close" onclick="closeBackendModal()"><i class="fas fa-times"></i></button>
+        <span class="modal-eyebrow">BACKEND</span>
+        <h3>${data.name}</h3>
+        <div class="modal-domain">${data.domain}</div>
+
+        <div class="modal-section">
+            <h4>Qué hace</h4>
+            <p>${data.resumen}</p>
+        </div>
+
+        <div class="modal-section">
+            <h4>Funciones principales</h4>
+            <ul>${funcionesHtml}</ul>
+        </div>
+
+        <div class="modal-tech">${techHtml}</div>
+
+        <a class="modal-repo" href="${data.repo}" target="_blank"><i class="fab fa-github"></i> Ver repositorio</a>
+    `;
+
+    document.getElementById('backendModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeBackendModal(){
+    document.getElementById('backendModal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+function closeBackendModalOnOverlay(e){
+    if(e.target.id === 'backendModal') closeBackendModal();
+}
+
+document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeBackendModal();
+});
+</script>
 
 </body>
 </html>
