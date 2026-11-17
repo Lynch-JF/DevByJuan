@@ -327,6 +327,44 @@ body{
 .backend-card.placeholder:hover{ border-color:rgba(242,169,59,.35); color:var(--accent); transform:none; box-shadow:none; }
 .backend-card.placeholder:hover i{ color:var(--accent); }
 
+
+/* ===== PRIVATE PROJECTS / GALLERY ===== */
+.private-tag{
+  position:absolute; top:52px; right:16px; z-index:2;
+  display:flex; align-items:center; gap:6px;
+  font-family:'IBM Plex Mono',monospace; font-size:.64rem; letter-spacing:.04em;
+  padding:4px 9px; border-radius:100px;
+  background:rgba(18,20,28,.6); color:var(--text-dim);
+  border:1px solid var(--line); backdrop-filter:blur(6px);
+}
+.project-card img{ object-position:left top; }
+.actions button{
+  flex:1; padding:10px; border-radius:8px; cursor:pointer;
+  background:rgba(255,255,255,.06); color:var(--text);
+  font-family:'Inter',sans-serif; font-weight:500; font-size:.8rem;
+  border:1px solid var(--line);
+  display:flex; align-items:center; justify-content:center; gap:7px; transition:.25s;
+}
+.actions button:hover{ background:var(--accent); color:#15161c; border-color:var(--accent); }
+.modal-repo.private{ color:var(--text-dim); cursor:default; }
+.modal-repo.private:hover{ background:rgba(255,255,255,.06); color:var(--text-dim); border-color:var(--line); }
+.modal-box.wide{ max-width:1000px; }
+.g-stage{ position:relative; border-radius:12px; overflow:hidden; border:1px solid var(--line); background:#0b0c11; }
+.g-stage img{ display:block; width:100%; height:auto; cursor:zoom-in; }
+.g-nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:40px; height:40px; border-radius:50%;
+  background:rgba(18,20,28,.75); color:var(--text);
+  border:1px solid var(--line); cursor:pointer; transition:.2s;
+}
+.g-nav:hover{ background:var(--accent); color:#15161c; }
+.g-nav.prev{ left:12px; } .g-nav.next{ right:12px; }
+.g-cap{ font-size:.88rem; color:var(--text); font-weight:300; margin:14px 0 10px; line-height:1.55; }
+.g-dots{ display:flex; gap:8px; margin-bottom:18px; }
+.g-dot{ width:9px; height:9px; border-radius:50%; border:none; background:rgba(255,255,255,.18); cursor:pointer; padding:0; }
+.g-dot.on{ background:var(--accent); }
+@media(max-width:600px){ .g-nav{ width:34px; height:34px; } }
+
 @keyframes fadeUp{ from{opacity:0; transform:translateY(24px);} to{opacity:1; transform:translateY(0);} }
 @keyframes pulse{
   0%{ box-shadow:0 0 0 0 rgba(53,208,160,.5); }
@@ -477,7 +515,7 @@ body{
 </nav>
 
 <header class="registry-header">
-    <span class="eyebrow">REGISTRO — 5 SISTEMAS</span>
+    <span class="eyebrow">REGISTRO — 9 SISTEMAS</span>
     <h2>Mis Proyectos</h2>
 </header>
 
@@ -542,7 +580,7 @@ body{
        <div class="project-card">
             <span class="index-tag">05</span>
             <span class="status-tag dev"><span class="dot"></span>EN DESARROLLO</span>
-            <img src="IMG/NEXO.png" alt="RETAILSYSTEM">
+            <img src="IMG/NEXO.png" alt="NEXO CRM">
             <div class="overlay">
                 <h3>NEXO CRM</h3>
             <p>CRM diseñado para gestionar clientes, ventas, seguimiento y procesos comerciales desde un panel centralizado.</p>
@@ -554,15 +592,57 @@ body{
         </div>
 
         <div class="project-card">
-            <span class="index-tag">05</span>
+            <span class="index-tag">06</span>
             <span class="status-tag dev"><span class="dot"></span>EN DESARROLLO</span>
-            <img src="IMG/nexocredicto.png" alt="RETAILSYSTEM">
+            <img src="IMG/nexocredicto.png" alt="Nexo Credicto">
             <div class="overlay">
                 <h3>Nexo Credicto</h3>
             <p>Plataforma para gestionar préstamos, clientes, cuotas, pagos y reportes desde un panel centralizado.</p>
               <div class="actions">
                     <a href="https://nexo-credit.vercel.app/" target="_blank"><i class="fas fa-external-link-alt"></i> Ver demo</a>
                     <a href="https://github.com/Lynch-JF/NexoCredit"><i class="fab fa-github"></i> Código</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <span class="index-tag">07</span>
+            <span class="status-tag live"><span class="dot"></span>EN PRODUCCIÓN</span>
+            <span class="private-tag"><i class="fas fa-lock"></i> Acceso privado</span>
+            <img src="IMG/capturas/ADETEX-1.png" alt="ADETEX — panel de administración">
+            <div class="overlay">
+                <h3>ADETEX ERP</h3>
+                <p>Facturación con NCF, inventario, compras, cuentas y contabilidad para una distribuidora de máquinas de coser.</p>
+                <div class="actions">
+                    <button type="button" onclick="openGallery('adetex')"><i class="fas fa-images"></i> Ver capturas</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <span class="index-tag">08</span>
+            <span class="status-tag live"><span class="dot"></span>EN PRODUCCIÓN</span>
+            <span class="private-tag"><i class="fas fa-lock"></i> Acceso privado</span>
+            <img src="IMG/capturas/VIPBAR-1.png" alt="RetailSystem POS Bar — venta directa">
+            <div class="overlay">
+                <h3>RetailSystem POS Bar</h3>
+                <p>Punto de venta para bares y licor stores: cobro en pesos, tarjeta y dólares, turno y cierre de caja.</p>
+                <div class="actions">
+                    <button type="button" onclick="openGallery('posbar')"><i class="fas fa-images"></i> Ver capturas</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <span class="index-tag">09</span>
+            <span class="status-tag live"><span class="dot"></span>EN PRODUCCIÓN</span>
+            <span class="private-tag"><i class="fas fa-lock"></i> Acceso privado</span>
+            <img src="IMG/capturas/SUJUMI-1.png" alt="Costeo Logística — panel de costeo">
+            <div class="overlay">
+                <h3>Costeo Logística</h3>
+                <p>Costo real de cada viaje y pedido, rentabilidad y comparación de transporte propio contra externo.</p>
+                <div class="actions">
+                    <button type="button" onclick="openGallery('costeo')"><i class="fas fa-images"></i> Ver capturas</button>
                 </div>
             </div>
         </div>
@@ -615,6 +695,42 @@ body{
         </div>
 
 
+        <div class="backend-card">
+            <div class="backend-top">
+                <div class="backend-name"><i class="fas fa-lock"></i>Adetex-backend</div>
+                <span class="status-tag live" style="position:static;"><span class="dot"></span>ONLINE</span>
+            </div>
+            <div class="backend-domain">adetex-backend-production.up.railway.app</div>
+            <div class="backend-desc">API del ERP ADETEX: ventas con NCF, inventario por almacén, cuentas por cobrar y pagar, contabilidad y respaldo completo.</div>
+            <div class="backend-tech">
+                <span class="tech-pill">Node.js</span>
+                <span class="tech-pill">Express</span>
+                <span class="tech-pill">PostgreSQL</span>
+                <span class="tech-pill">Railway</span>
+            </div>
+            <div class="backend-actions">
+                <button type="button" onclick="openBackendModal('adetex')"><i class="fas fa-circle-info"></i> Ver detalles</button>
+            </div>
+        </div>
+
+        <div class="backend-card">
+            <div class="backend-top">
+                <div class="backend-name"><i class="fas fa-lock"></i>costeo-logistica-api</div>
+                <span class="status-tag live" style="position:static;"><span class="dot"></span>ONLINE</span>
+            </div>
+            <div class="backend-domain">costeo-log-stica-production.up.railway.app</div>
+            <div class="backend-desc">API de Costeo Logística: viajes, pedidos, tarifas por hora y km, prorrateo de costos y rentabilidad por pedido.</div>
+            <div class="backend-tech">
+                <span class="tech-pill">Node.js</span>
+                <span class="tech-pill">Express</span>
+                <span class="tech-pill">PostgreSQL</span>
+                <span class="tech-pill">JWT</span>
+            </div>
+            <div class="backend-actions">
+                <button type="button" onclick="openBackendModal('costeo')"><i class="fas fa-circle-info"></i> Ver detalles</button>
+            </div>
+        </div>
+
         <div class="backend-card placeholder">
             <i class="fas fa-plus"></i>
             Agregar backend
@@ -658,12 +774,107 @@ const backendData = {
             'Endpoints consumidos por HIDENSERVICE-II para el frontend en tiempo real'
         ],
         tech: ['Node.js', 'Express', 'Railway']
+    },
+    'adetex': {
+        name: 'Adetex-backend',
+        domain: 'adetex-backend-production.up.railway.app',
+        resumen: 'API propia del sistema ADETEX (programa de escritorio en C#). Crea sus tablas al arrancar y sostiene la facturación, el inventario y la contabilidad del negocio.',
+        funciones: [
+            'Ventas con comprobantes fiscales (NCF) y secuencias por tipo',
+            'Inventario por almacén: entradas, transferencias, ajustes y kardex',
+            'Cuentas por cobrar con abonos y cuentas por pagar a proveedores',
+            'Asientos contables y catálogo de cuentas',
+            'Respaldo completo de la base para PostgreSQL, MySQL, SQL Server, SQLite o JSON'
+        ],
+        tech: ['Node.js', 'Express', 'PostgreSQL', 'JWT', 'Railway']
+    },
+    'costeo': {
+        name: 'costeo-logistica-api',
+        domain: 'costeo-log-stica-production.up.railway.app',
+        resumen: 'Backend que calcula el costo real de operación logística: cierra cada viaje con sus gastos y los prorratea entre los pedidos que llevó.',
+        funciones: [
+            'Registro y cierre de viajes (km, combustible, peajes, viáticos, horas extra)',
+            'Costo estándar vs. costo real y alertas de desviación',
+            'Comparación de transporte propio contra externo por zona',
+            'Rentabilidad por pedido y por sacador, sincronizada con los pedidos',
+            'Catálogos versionados: tarifas, vehículos, transportistas y roles'
+        ],
+        tech: ['Node.js', 'Express', 'PostgreSQL', 'JWT', 'Railway']
     }
 };
+
+
+const galleryData = {
+    'adetex': {
+        name: 'ADETEX ERP',
+        nota: 'Programa de escritorio (C# / WinForms) instalado en las PCs del negocio. Requiere usuario: estas son capturas con datos de ejemplo.',
+        tech: ['C#', '.NET', 'WinForms', 'Node.js', 'PostgreSQL', 'Velopack'],
+        shots: [
+            ['IMG/capturas/ADETEX-1.png', 'Panel de administración: indicadores del día y accesos a todos los módulos.'],
+            ['IMG/capturas/ADETEX-2.png', 'Punto de venta: cliente, comprobante fiscal (NCF), ITBIS y cobro con atajos de teclado.']
+        ]
+    },
+    'posbar': {
+        name: 'RetailSystem POS Bar',
+        nota: 'Sistema POS de escritorio en uso en VIP BAR. Solo lo ven los cajeros y administradores del negocio: capturas con datos de ejemplo.',
+        tech: ['C#', '.NET', 'WinForms', 'Node.js', 'PostgreSQL', 'Impresora térmica'],
+        shots: [
+            ['IMG/capturas/VIPBAR-1.png', 'Venta directa: búsqueda por código de barras, total en pesos y con recargo de tarjeta.'],
+            ['IMG/capturas/VIPBAR-2.png', 'Método de pago: efectivo, tarjeta, transferencia o dólares con la tasa del día.'],
+            ['IMG/capturas/VIPBAR-3.png', 'Cierre de caja: sistema vs. contado, desglose de billetes y verificación de vouchers.']
+        ]
+    },
+    'costeo': {
+        name: 'Costeo Logística',
+        nota: 'Panel web interno protegido con usuario y rol. Capturas con datos de ejemplo.',
+        tech: ['HTML', 'JavaScript', 'Chart.js', 'Node.js', 'PostgreSQL'],
+        shots: [
+            ['IMG/capturas/SUJUMI-1.png', 'Panel de costeo: costo del día, viajes estándar vs. real y alertas de desviación.'],
+            ['IMG/capturas/SUJUMI-2.png', 'Comparación detallada de transporte propio contra externo, por zona.']
+        ]
+    }
+};
+
+let galleryState = { id: null, i: 0 };
+
+function renderGallery(){
+    const g = galleryData[galleryState.id], i = galleryState.i, [src, cap] = g.shots[i];
+    const dots = g.shots.map((_, k) => `<button class="g-dot${k === i ? ' on' : ''}" onclick="goShot(${k})" aria-label="Captura ${k + 1}"></button>`).join('');
+    document.getElementById('modalBox').innerHTML = `
+        <button class="modal-close" onclick="closeBackendModal()"><i class="fas fa-times"></i></button>
+        <span class="modal-eyebrow"><i class="fas fa-lock"></i> ACCESO PRIVADO · CAPTURA ${i + 1} DE ${g.shots.length}</span>
+        <h3>${g.name}</h3>
+        <div class="modal-domain">${g.nota}</div>
+        <div class="g-stage">
+            <img src="${src}" alt="${cap}" onclick="window.open('${src}','_blank')">
+            ${g.shots.length > 1 ? `<button class="g-nav prev" onclick="goShot(${i - 1})" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button><button class="g-nav next" onclick="goShot(${i + 1})" aria-label="Siguiente"><i class="fas fa-chevron-right"></i></button>` : ''}
+        </div>
+        <p class="g-cap">${cap}</p>
+        <div class="g-dots">${dots}</div>
+        <div class="modal-tech">${g.tech.map(t => `<span class="tech-pill">${t}</span>`).join('')}</div>
+    `;
+}
+
+function openGallery(id){
+    if(!galleryData[id]) return;
+    galleryState = { id, i: 0 };
+    document.getElementById('modalBox').classList.add('wide');
+    renderGallery();
+    document.getElementById('backendModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function goShot(k){
+    const n = galleryData[galleryState.id].shots.length;
+    galleryState.i = (k + n) % n;
+    renderGallery();
+}
 
 function openBackendModal(id){
     const data = backendData[id];
     if(!data) return;
+    document.getElementById('modalBox').classList.remove('wide');
+    galleryState.id = null;
 
     const funcionesHtml = data.funciones.map(f => `<li><i class="fas fa-caret-right"></i>${f}</li>`).join('');
     const techHtml = data.tech.map(t => `<span class="tech-pill">${t}</span>`).join('');
@@ -686,7 +897,7 @@ function openBackendModal(id){
 
         <div class="modal-tech">${techHtml}</div>
 
-        <a class="modal-repo" href="${data.repo}" target="_blank"><i class="fab fa-github"></i> Ver repositorio</a>
+        ${data.repo ? `<a class="modal-repo" href="${data.repo}" target="_blank"><i class="fab fa-github"></i> Ver repositorio</a>` : `<div class="modal-repo private"><i class="fas fa-lock"></i> Código privado</div>`}
     `;
 
     document.getElementById('backendModal').classList.add('open');
@@ -704,6 +915,10 @@ function closeBackendModalOnOverlay(e){
 
 document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') closeBackendModal();
+    if(galleryState.id && document.getElementById('backendModal').classList.contains('open')){
+        if(e.key === 'ArrowRight') goShot(galleryState.i + 1);
+        if(e.key === 'ArrowLeft') goShot(galleryState.i - 1);
+    }
 });
 </script>
 
